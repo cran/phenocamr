@@ -1,0 +1,65 @@
+input[type="number"] {
+  max-width: 80%;
+}
+
+.outer {
+  position: fixed;
+  top: 41px;
+  left: 250;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Customize fonts */
+body, label, input, button, select { 
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 400;
+}
+h1, h2, h3, h4, h5, h6 { font-weight: 400; }
+
+#controls {
+  /* Appearance */
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 0.65;
+  zoom: 0.9;
+  transition: opacity 500ms 1s;
+}
+#controls:hover {
+  /* Fade in while hovering */
+  opacity: 0.95;
+  transition-delay: 0;
+}
+
+/* Position and style citation */
+#cite {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+}
+
+/* If not using map tiles, show a white background */
+.leaflet-container {
+  background-color: white;
+}
+
+/* infobox settings and styling */
+
+.info-box {
+	min-height: 60px;
+} 
+
+.info-box-icon {
+	height: 60px;
+	line-height: 60px;
+}
+
+.info-box-content {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Koen Hufkens" />
+
+<meta name="date" content="2018-04-18" />
+
+<title>phenocamr</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">phenocamr</h1>
+<h4 class="author"><em>Koen Hufkens</em></h4>
+<h4 class="date"><em>2018-04-18</em></h4>
+
+
+
+<p>A programmatic interface to the <a href="https://phenocam.sr.unh.edu/">PhenoCam web services</a>. Allows for easy downloads of PhenoCam near-surface remote sensing greenness (Gcc) time series directly to your R workspace or your computer. Post-processing allows for the smoothing of the time-series and the calculation of phenological transition dates as a final product.</p>
+<p>The package gives access to the latest generated PhenoCam time series (at most 1-day old for running sites) and allows for the extraction of up-to-date phenological transition dates. However, the data acquired through the package will not be curated and vetted for data quality.</p>
+<p>For a quality controlled and fully described dataset I suggest downloading the dataset as described by Richardson et al. (2018). This dataset uses the phenocamr packages in its final processing steps however quality control is gauranteed through careful review of the data. The data can be interactivly explored on <a href="http://explore.phenocam.us">explore.phenocam.us</a> and downloaded in full from the <a href="https://daac.ornl.gov/cgi-bin/dsviewer.pl?ds_id=1511">ORNL DAAC</a>. If in need of more recent data you can use the package and its functionality but be mindful of quality control especially the region-of-interest (ROI) used and potential unaccounted field-of-view (FOV) shifts in the dataset.</p>
+<div id="a-worked-example" class="section level2">
+<h2>A worked example</h2>
+<p>Below I describe the most common use of the package, downloading recent PhenoCam time series and generating phenological transition dates for a given site and data type. I intentionally disable most automated processing and step through some of the routines to illustrate the workflow which normally happens internally to the main function download_phenocam(). Generated transition date files can be used in later analysis or modelling exercises using for example the <a href="https://github.com/khufkens/phenor">phenor R package</a>.</p>
+<div id="select-a-site" class="section level3">
+<h3>Select a site</h3>
+<p>To select a site first download an overview meta-data table of all available sites together with their ROI id’s and vegetation type and a limited set of meta-data parameters.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rois &lt;-<span class="st"> </span><span class="kw">list_rois</span>()
+<span class="kw">print</span>(<span class="kw">head</span>(rois))
+<span class="co">#&gt;                  description first_date           site      lat site_years</span>
+<span class="co">#&gt; 1             general canopy 2007-08-15  aguatibiaeast 33.62200        8.3</span>
+<span class="co">#&gt; 2             General canopy 2003-10-02 aguatibianorth 33.60222        2.5</span>
+<span class="co">#&gt; 3 Grassy field in foreground 2008-08-29       ahwahnee 37.74670        2.8</span>
+<span class="co">#&gt; 4 Grassy field in foreground 2012-03-29       ahwahnee 37.74670        3.3</span>
+<span class="co">#&gt; 5 Grassy field in foreground 2015-07-28       ahwahnee 37.74670        2.7</span>
+<span class="co">#&gt; 6                 understory 2014-11-04      alleypond 40.74284        0.7</span>
+<span class="co">#&gt;   missing_data_pct veg_type        lon  last_date roi_id_number</span>
+<span class="co">#&gt; 1               22       XX -116.86700 2018-04-17             1</span>
+<span class="co">#&gt; 2               19       XX -117.34368 2006-10-26             1</span>
+<span class="co">#&gt; 3                9       GR -119.58160 2011-10-14             1</span>
+<span class="co">#&gt; 4                0       GR -119.58160 2015-07-01             2</span>
+<span class="co">#&gt; 5                1       GR -119.58160 2018-04-17             3</span>
+<span class="co">#&gt; 6               24       UN  -73.74304 2015-10-14             1</span>
+<span class="co">#&gt;   data_release</span>
+<span class="co">#&gt; 1         &lt;NA&gt;</span>
+<span class="co">#&gt; 2         &lt;NA&gt;</span>
+<span class="co">#&gt; 3           v1</span>
+<span class="co">#&gt; 4           v1</span>
+<span class="co">#&gt; 5         &lt;NA&gt;</span>
+<span class="co">#&gt; 6         &lt;NA&gt;</span></code></pre></div>
+<p>A full list of meta-data for all sites can be queried using the list_sites() function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sites &lt;-<span class="st"> </span><span class="kw">list_sites</span>()
+<span class="kw">print</span>(<span class="kw">head</span>(sites))
+<span class="co">#&gt;   wwf_biome nimage</span>
+<span class="co">#&gt; 1         4  40168</span>
+<span class="co">#&gt; 2        12  33080</span>
+<span class="co">#&gt; 3        12   2639</span>
+<span class="co">#&gt; 4         5  41711</span>
+<span class="co">#&gt; 5         4   1452</span>
+<span class="co">#&gt; 6         5  41828</span>
+<span class="co">#&gt;                                                                                                                                                                                                                 site_acknowledgements</span>
+<span class="co">#&gt; 1                                                                                                                   Camera images from Acadia National Park are provided courtesy of the National Park Service Air Resources Program.</span>
+<span class="co">#&gt; 2                                                                                                         Camera images from Agua Tibia Wilderness are provided courtesy of the USDA Forest Service Air Resources Management Program.</span>
+<span class="co">#&gt; 3                                                                                                         Camera images from Agua Tibia Wilderness are provided courtesy of the USDA Forest Service Air Resources Management Program.</span>
+<span class="co">#&gt; 4                                                                                                                 Camera images from Yosemite National Park are provided courtesy of the National Park Service Air Resources Program.</span>
+<span class="co">#&gt; 5                                                                                                                                                                                                                                    </span>
+<span class="co">#&gt; 6 Research at the Alligator River flux site is supported by DOE NICCR (award 08-SC-NICCR-1072), DOE-TES (awards 11-DE-SC-0006700 and 7090112), USDA Forest Service (award 13-JV-11330110-081) and USDA-NIFA (award 2014-67003-22068).</span>
+<span class="co">#&gt;   MAT_site   date_end landcover_igbp koeppen_geiger           site</span>
+<span class="co">#&gt; 1       NA 2018-04-17              5            Dfb         acadia</span>
+<span class="co">#&gt; 2       NA 2018-04-17              7            Csa  aguatibiaeast</span>
+<span class="co">#&gt; 3       NA 2006-10-25              7            Csa aguatibianorth</span>
+<span class="co">#&gt; 4       NA 2018-04-17              8            Csb       ahwahnee</span>
+<span class="co">#&gt; 5       NA 2015-10-13             13            Cfa      alleypond</span>
+<span class="co">#&gt; 6     16.6 2018-04-17              5            Cfa alligatorriver</span>
+<span class="co">#&gt;   infrared active MAT_daymet site_type      lat ecoregion</span>
+<span class="co">#&gt; 1        N   TRUE       7.05       III 44.37694         8</span>
+<span class="co">#&gt; 2        N   TRUE      15.75       III 33.62200        11</span>
+<span class="co">#&gt; 3        N  FALSE      16.00       III 33.60222        11</span>
+<span class="co">#&gt; 4        N   TRUE      12.25       III 37.74670         6</span>
+<span class="co">#&gt; 5        N  FALSE      11.90        II 40.74284         8</span>
+<span class="co">#&gt; 6        Y   TRUE      16.75         I 35.78790         8</span>
+<span class="co">#&gt;   camera_description flux_sitenames tzoffset                 group</span>
+<span class="co">#&gt; 1            unknown                      -5 National Park Service</span>
+<span class="co">#&gt; 2            unknown                      -8                  USFS</span>
+<span class="co">#&gt; 3            unknown                      -8                  USFS</span>
+<span class="co">#&gt; 4            unknown                      -8 National Park Service</span>
+<span class="co">#&gt; 5  StarDot NetCam SC                      -5          SmartForests</span>
+<span class="co">#&gt; 6  StarDot NetCam SC         US-NC4       -5              PhenoCam</span>
+<span class="co">#&gt;                                       contact1</span>
+<span class="co">#&gt; 1         Dee Morse &lt;dee_morse AT nps DOT gov&gt;</span>
+<span class="co">#&gt; 2  Ann E Mebane &lt;amebane AT fs DOT fed DOT us&gt;</span>
+<span class="co">#&gt; 3                                             </span>
+<span class="co">#&gt; 4         Dee Morse &lt;dee_morse AT nps DOT gov&gt;</span>
+<span class="co">#&gt; 5 Mary Martin &lt;mary DOT martin AT unh DOT edu&gt;</span>
+<span class="co">#&gt; 6     Asko Noormets &lt;noormets AT tamu DOT edu&gt;</span>
+<span class="co">#&gt;                                         contact2 flux_data MAP_site</span>
+<span class="co">#&gt; 1         John Gross &lt;John_Gross AT nps DOT gov&gt;     FALSE       NA</span>
+<span class="co">#&gt; 2  Kristi Savig &lt;KSavig AT air-resource DOT com&gt;     FALSE       NA</span>
+<span class="co">#&gt; 3                                                    FALSE       NA</span>
+<span class="co">#&gt; 4         John Gross &lt;John_Gross AT nps DOT gov&gt;     FALSE       NA</span>
+<span class="co">#&gt; 5 Nicholas Grant &lt;ngrant02 AT fs DOT fed DOT us&gt;     FALSE       NA</span>
+<span class="co">#&gt; 6          John King &lt;john_king AT ncsu DOT edu&gt;      TRUE     1310</span>
+<span class="co">#&gt;   camera_orientation secondary_veg_type date_start        lon</span>
+<span class="co">#&gt; 1                 NE                 EN 2007-03-15  -68.26083</span>
+<span class="co">#&gt; 2                 SW                    2007-08-16 -116.86700</span>
+<span class="co">#&gt; 3                 NE                    2003-10-01 -117.34368</span>
+<span class="co">#&gt; 4                  E                 GR 2008-08-28 -119.58160</span>
+<span class="co">#&gt; 5                  S                    2014-11-05  -73.74304</span>
+<span class="co">#&gt; 6                  N                 WL 2012-05-03  -75.90380</span>
+<span class="co">#&gt;                                                   dominant_species</span>
+<span class="co">#&gt; 1                                                                 </span>
+<span class="co">#&gt; 2                                                                 </span>
+<span class="co">#&gt; 3                                                                 </span>
+<span class="co">#&gt; 4                                                                 </span>
+<span class="co">#&gt; 5                                                                 </span>
+<span class="co">#&gt; 6 Nyssa sylvatica, Taxodium distichum, Nyssa aquatica, Acer rubrum</span>
+<span class="co">#&gt;                                               site_description elev</span>
+<span class="co">#&gt; 1 Acadia National Park, McFarland Hill, near Bar Harbor, Maine  158</span>
+<span class="co">#&gt; 2                            Agua Tibia Wilderness, California 1086</span>
+<span class="co">#&gt; 3                            Agua Tibia Wilderness, California 1090</span>
+<span class="co">#&gt; 4          Ahwahnee Meadow, Yosemite National Park, California 1199</span>
+<span class="co">#&gt; 5                                 Alley Pond, Queens, New York   61</span>
+<span class="co">#&gt; 6     Alligator River National Wildlife Refuge, North Carolina    1</span>
+<span class="co">#&gt;   MAT_worldclim MAP_worldclim MAP_daymet flux_networks   method</span>
+<span class="co">#&gt; 1           6.5          1303       1439               httppull</span>
+<span class="co">#&gt; 2          14.9           504        483               httppull</span>
+<span class="co">#&gt; 3          13.8           729        489               httppull</span>
+<span class="co">#&gt; 4          11.8           886        871               httppull</span>
+<span class="co">#&gt; 5          11.7          1109       1263                ftppush</span>
+<span class="co">#&gt; 6          16.4          1312       1371     AMERIFLUX  ftppush</span>
+<span class="co">#&gt;   primary_veg_type</span>
+<span class="co">#&gt; 1               DB</span>
+<span class="co">#&gt; 2               SH</span>
+<span class="co">#&gt; 3               SH</span>
+<span class="co">#&gt; 4               EN</span>
+<span class="co">#&gt; 5               DB</span>
+<span class="co">#&gt; 6               DB</span></code></pre></div>
+</div>
+<div id="download-a-phenocam-time-series." class="section level3">
+<h3>Download a PhenoCam time series.</h3>
+<p>The below code shows you how to download a PhenoCam time series for the “<strong>harvard</strong>” site, ROI (roi_id) 1 and a time step frequency of 3-days. In this case the default outlier detection and smoothing routines has been disabled and will be run separately in subsequent steps. In normal use these will be enabled by default. The default output directory is tempdir() but any directory can be specified for data management purposes. If default settings are maintained, outlier detection and smoothing will be performed automatically. If so desired phenology dates can be estimated in one pass. In the latter case new data will be written in the same directory as specified for downloading the time series data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">download_phenocam</span>(<span class="dt">site =</span> <span class="st">&quot;harvard$&quot;</span>,
+                    <span class="dt">veg_type =</span> <span class="st">&quot;DB&quot;</span>,
+                    <span class="dt">roi_id =</span> <span class="st">&quot;1&quot;</span>,
+                    <span class="dt">frequency =</span> <span class="dv">3</span>,
+                    <span class="dt">outlier_detection =</span> <span class="ot">FALSE</span>,
+                    <span class="dt">smooth =</span> <span class="ot">FALSE</span>,
+                    <span class="dt">out_dir =</span> <span class="kw">tempdir</span>())
+<span class="co">#&gt; Downloading: harvard_DB_0001_3day.csv</span></code></pre></div>
+<p>After downloading we read in the data from disk. The data has a header and is comma separated.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_phenocam</span>(<span class="kw">paste0</span>(<span class="kw">tempdir</span>(),<span class="st">&quot;/harvard_DB_0001_3day.csv&quot;</span>))
+
+<span class="kw">print</span>(<span class="kw">str</span>(df))
+<span class="co">#&gt; List of 10</span>
+<span class="co">#&gt;  $ site          : chr &quot;harvard&quot;</span>
+<span class="co">#&gt;  $ veg_type      : chr &quot;DB&quot;</span>
+<span class="co">#&gt;  $ roi_id        : chr &quot;0001&quot;</span>
+<span class="co">#&gt;  $ frequency     : chr &quot;3day&quot;</span>
+<span class="co">#&gt;  $ lat           : num 42.5</span>
+<span class="co">#&gt;  $ lon           : num -72.2</span>
+<span class="co">#&gt;  $ elev          : num 340</span>
+<span class="co">#&gt;  $ solar_elev_min: num 10</span>
+<span class="co">#&gt;  $ header        : Named chr [1:24] NA NA NA &quot;harvard&quot; ...</span>
+<span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:24] &quot;#&quot; &quot;# 3-day summary product time series for harvard&quot; &quot;#&quot; &quot;# Site&quot; ...</span>
+<span class="co">#&gt;  $ data          :'data.frame':  3846 obs. of  32 variables:</span>
+<span class="co">#&gt;   ..$ date                : chr [1:3846] &quot;2008-01-05&quot; &quot;2008-01-06&quot; &quot;2008-01-07&quot; &quot;2008-01-08&quot; ...</span>
+<span class="co">#&gt;   ..$ year                : int [1:3846] 2008 2008 2008 2008 2008 2008 2008 2008 2008 2008 ...</span>
+<span class="co">#&gt;   ..$ doy                 : int [1:3846] 5 6 7 8 9 10 11 12 13 14 ...</span>
+<span class="co">#&gt;   ..$ image_count         : int [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ midday_filename     : chr [1:3846] NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ midday_r            : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ midday_g            : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ midday_b            : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ midday_gcc          : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ midday_rcc          : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ r_mean              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ r_std               : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ g_mean              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ g_std               : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ b_mean              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ b_std               : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ gcc_mean            : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ gcc_std             : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ gcc_50              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ gcc_75              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ gcc_90              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ rcc_mean            : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ rcc_std             : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ rcc_50              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ rcc_75              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ rcc_90              : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ max_solar_elev      : num [1:3846] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ snow_flag           : logi [1:3846] NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ outlierflag_gcc_mean: logi [1:3846] NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ outlierflag_gcc_50  : logi [1:3846] NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ outlierflag_gcc_75  : logi [1:3846] NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   ..$ outlierflag_gcc_90  : logi [1:3846] NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr &quot;phenocamr&quot;</span>
+<span class="co">#&gt; NULL</span></code></pre></div>
+</div>
+<div id="expanding-3-day-data-for-maximum-phenology-resolution" class="section level3">
+<h3>Expanding 3-day data for maximum phenology resolution</h3>
+<p>The downloaded time series is of a 3-day resolution. However, to correctly evaluate the phenology on a daily time step the time series needs to be expanded to this one day time step. This can be achieved using the expand_phenocam() function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">expand_phenocam</span>(df)</code></pre></div>
+</div>
+<div id="detect-data-outlier" class="section level3">
+<h3>Detect data outlier</h3>
+<p>After reading in the data as a data frame you can apply the outlier detection routine. This routine uses an iterative method to detect outlier values in the Gcc time series. This routine filters out most spurious values due contaminiation by snow, mist, rain or otherwise very bright events. Warnings are suppressed as the routine is iterative and might throw warnings if it does not converge on a solution. This has no implications for the routine and data returned.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  df &lt;-<span class="st"> </span><span class="kw">detect_outliers</span>(df)</code></pre></div>
+</div>
+<div id="smoothing-a-time-series" class="section level3">
+<h3>Smoothing a time series</h3>
+<p>After detecting outliers you can smooth the data. This function uses an AIC based methodology to find the opitmal loess smoothing window. Warnings are suppressed as the routine uses an optimization in which certain parameter settings return warnings. This has no implications for the routine and data returned.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  df &lt;-<span class="st"> </span><span class="kw">smooth_ts</span>(df)</code></pre></div>
+</div>
+<div id="calculating-phenophases" class="section level3">
+<h3>Calculating phenophases</h3>
+<p>Finally, if smoothed data is available you can calculate phenological transition dates. This routine uses a PELT changepoint detection based approach to find meaningful seasonal cycles in the data. By default start of growing season dates are returned. If the reverse parameter is set to TRUE the end of growing season dates are returned. Dates are formatted as unix time and will be provided for three default threshold values (10 / 25 / 50%) of the Gcc amplitude.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">start_of_season &lt;-<span class="st"> </span><span class="kw">transition_dates</span>(df)
+<span class="kw">print</span>(<span class="kw">head</span>(start_of_season))
+<span class="co">#&gt;   transition_10 transition_25 transition_50 transition_10_lower_ci</span>
+<span class="co">#&gt; 1         14003         14007         14014                  14001</span>
+<span class="co">#&gt; 2         14361         14367         14374                  14357</span>
+<span class="co">#&gt; 3         14720         14725         14730                  14700</span>
+<span class="co">#&gt; 4         15096         15101         15107                  15092</span>
+<span class="co">#&gt; 5         15451         15461         15467                  15444</span>
+<span class="co">#&gt; 6         15825         15829         15835                  15824</span>
+<span class="co">#&gt;   transition_25_lower_ci transition_50_lower_ci transition_10_upper_ci</span>
+<span class="co">#&gt; 1                  14006                  14011                  14005</span>
+<span class="co">#&gt; 2                  14365                  14372                  14364</span>
+<span class="co">#&gt; 3                  14724                  14728                  14723</span>
+<span class="co">#&gt; 4                  15100                  15105                  15099</span>
+<span class="co">#&gt; 5                  15460                  15465                  15457</span>
+<span class="co">#&gt; 6                  15828                  15833                  15827</span>
+<span class="co">#&gt;   transition_25_upper_ci transition_50_upper_ci threshold_10 threshold_25</span>
+<span class="co">#&gt; 1                  14009                  14015      0.37851      0.39272</span>
+<span class="co">#&gt; 2                  14369                  14375      0.37693      0.39121</span>
+<span class="co">#&gt; 3                  14727                  14731      0.37781      0.39193</span>
+<span class="co">#&gt; 4                  15103                  15108      0.37910      0.39322</span>
+<span class="co">#&gt; 5                  15463                  15468      0.38284      0.39777</span>
+<span class="co">#&gt; 6                  15830                  15836      0.38057      0.39685</span>
+<span class="co">#&gt;   threshold_50 min_gcc max_gcc</span>
+<span class="co">#&gt; 1      0.42003 0.36959 0.46489</span>
+<span class="co">#&gt; 2      0.41848 0.36820 0.46224</span>
+<span class="co">#&gt; 3      0.41882 0.36897 0.46514</span>
+<span class="co">#&gt; 4      0.42230 0.37074 0.46848</span>
+<span class="co">#&gt; 5      0.42725 0.37279 0.47838</span>
+<span class="co">#&gt; 6      0.42533 0.37269 0.47138</span></code></pre></div>
+<p>Alternatively you can use the phenophases() function which is a wrapper of the transition_dates() function. However, as it potentially writes data to disk it needs additional information such as the roi_id, site name etc. The phenophases() function is the function which generated the final data products in the Richardson et al. (2018) paper. If used internally the output will be formatted in unix time, when written to file the dates will be human readable in YYYY-MM-DD format. Both start and end of season estimates will be provided.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phenology_dates &lt;-<span class="st"> </span><span class="kw">phenophases</span>(df, <span class="dt">internal =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>With the phenoogy dates calculated we can plot their respective locations on the smoothed time series. In this case the plot will show the 50% amplitude threshold values for both rising and falling parts of the 90th percentile Gcc curve, marked with green and brown vertical lines respectivelly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">as.Date</span>(df<span class="op">$</span>data<span class="op">$</span>date),
+     df<span class="op">$</span>data<span class="op">$</span>smooth_gcc_<span class="dv">90</span>,
+     <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>,
+     <span class="dt">xlab =</span> <span class="st">&quot;date&quot;</span>,
+     <span class="dt">ylab =</span> <span class="st">&quot;Gcc&quot;</span>)
+
+<span class="co"># rising &quot;spring&quot; greenup dates</span>
+<span class="kw">abline</span>(<span class="dt">v =</span> phenology_dates<span class="op">$</span>rising<span class="op">$</span>transition_<span class="dv">50</span>,
+       <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>)
+
+<span class="co"># falling &quot;autumn&quot; senescence dates</span>
+<span class="kw">abline</span>(<span class="dt">v =</span> phenology_dates<span class="op">$</span>falling<span class="op">$</span>transition_<span class="dv">50</span>,
+       <span class="dt">col =</span> <span class="st">&quot;brown&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>Hufkens K., Basler J. D., Milliman T. Melaas E., Richardson A.D. 2018 <a href="http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12970/full">An integrated phenology modelling framework in R: Phenology modelling with phenor. Methods in Ecology &amp; Evolution</a>, 9: 1-10.</p>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2>Acknowledgements</h2>
+<p>This project was is supported by the National Science Foundation’s Macro-system Biology Program (awards EF-1065029 and EF-1702697).</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
