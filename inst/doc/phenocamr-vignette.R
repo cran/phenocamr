@@ -9,24 +9,24 @@ library(phenocamr)
 
 
 ## ----eval = TRUE---------------------------------------------------------
-rois <- list_rois()
-print(head(rois))
-
-## ----eval = TRUE---------------------------------------------------------
 sites <- list_sites()
 print(head(sites))
 
 ## ----eval = TRUE---------------------------------------------------------
+rois <- list_rois()
+print(head(rois))
+
+## ----eval = TRUE---------------------------------------------------------
   download_phenocam(site = "harvard$",
                     veg_type = "DB",
-                    roi_id = "1",
+                    roi_id = "1000",
                     frequency = 3,
                     outlier_detection = FALSE,
                     smooth = FALSE,
                     out_dir = tempdir())
 
 ## ----eval = TRUE---------------------------------------------------------
-df <- read_phenocam(paste0(tempdir(),"/harvard_DB_0001_3day.csv"))
+df <- read_phenocam(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
 
 print(str(df))
 

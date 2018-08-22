@@ -24,11 +24,11 @@
 #' # downloads a time series
 #' download_phenocam(site = "harvard$",
 #'                   veg_type = "DB",
-#'                   roi_id = "1",
+#'                   roi_id = "1000",
 #'                   frequency = "3")
 #' 
 #' # read in data as data frame and calculate phenophases
-#' df <- read_phenocam(paste0(tempdir(),"/harvard_DB_0001_3day.csv"))
+#' df <- read_phenocam(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
 #' my_dates <- phenophases(df, internal = TRUE)
 #' 
 #' # print results
@@ -38,7 +38,7 @@
 phenophases = function(data,
                        mat = NULL,
                        internal = TRUE,
-                       out_dir=tempdir(),
+                       out_dir = tempdir(),
                        ...
                        ){
 
@@ -138,8 +138,8 @@ phenophases = function(data,
     phenology = rbind(rising,falling)
     
     # get the nr rows for each run
-    rising_length = dim(rising)[1]
-    falling_length = dim(falling)[1]
+    rising_length = nrow(rising)
+    falling_length = nrow(falling)
 
     # create a string for the direction of the analysis
     # rising or falling curves
@@ -218,7 +218,7 @@ phenophases = function(data,
 
   } else {
     # return dates as a list if no output file is required
-    return(list("rising" = rising,
-                "falling" = falling))
+    return(list("rising" = stats::na.omit(rising),
+                "falling" = stats::na.omit(falling)))
   }
 }

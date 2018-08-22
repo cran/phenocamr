@@ -4,10 +4,11 @@
 \alias{download_phenocam}
 \title{Function to download and post-process PhenoCam time series}
 \usage{
-download_phenocam(site = "harvard$", veg_type = NULL, frequency = "3",
-  roi_id = NULL, outlier_detection = TRUE, smooth = TRUE,
-  contract = FALSE, daymet = FALSE, trim_daymet = TRUE, trim = NULL,
-  phenophase = FALSE, out_dir = tempdir())
+download_phenocam(site = "harvard$", veg_type = NULL,
+  frequency = "3", roi_id = NULL, outlier_detection = TRUE,
+  smooth = TRUE, contract = FALSE, daymet = FALSE,
+  trim_daymet = TRUE, trim = NULL, phenophase = FALSE,
+  out_dir = tempdir())
 }
 \arguments{
 \item{site}{the site name, as mentioned on the PhenoCam web page expressed
@@ -52,11 +53,11 @@ dates or phenophases.
 # at an aggregation frequency of 3-days.
 download_phenocam(site = "harvard$",
                   veg_type = "DB",
-                  roi_id = "1",
+                  roi_id = "1000",
                   frequency = "3")
  
 # read phenocam data into phenocamr data structure                  
-df <- read_phenocam(paste0(tempdir(),"/harvard_DB_0001_3day.csv"))
+df <- read_phenocam(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
                   
 }
 }

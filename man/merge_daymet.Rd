@@ -4,7 +4,8 @@
 \alias{merge_daymet}
 \title{Merge Daymet data with a PhenoCam time series}
 \usage{
-merge_daymet(data, trim = FALSE, internal = TRUE, out_dir = tempdir())
+merge_daymet(data, trim = FALSE, internal = TRUE,
+  out_dir = tempdir())
 }
 \arguments{
 \item{data}{a PhenoCam data file or data structure}
@@ -32,11 +33,11 @@ Daymet.
 # download demo data
 download_phenocam(site = "harvard$",
                   veg_type = "DB",
-                  roi_id = "1",
+                  roi_id = "1000",
                   frequency = "3")
 
 # merge data with daymet data
-merge_daymet(paste0(tempdir(),"/harvard_DB_0001_3day.csv"))
+merge_daymet(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
 }
 }
 \keyword{Daymet,}

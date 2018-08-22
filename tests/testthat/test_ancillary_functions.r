@@ -2,66 +2,66 @@
 
 # ancillary functions
 test_that("check ancillary routines",{
-  
+
+  # test meta-data downloads
+  sites = try(list_sites())
+  sites_disk = try(list_sites(internal = FALSE))
+
   # test roi downloads
   roi = try(list_rois())
   roi_disk = try(list_rois(internal = FALSE))
   
-  # test meta-data downloads
-  sites = try(list_sites())
-  sites_disk = try(list_sites(internal = FALSE))
-  
   # download initial data
   df = try(download_phenocam(site = "harvard$",
                          veg_type = "DB",
-                         roi_id = "1",
+                         roi_id = "1000",
                          frequency = 3,
                          outlier_detection = FALSE,
                          smooth = TRUE,
                          out_dir = tempdir()))
-  
+
   # transtion dates routine
   png(paste0(tempdir(),"/harvard_test.png"),900,900)
-  transitions = try(transition_dates(paste0(tempdir(),"/harvard_DB_0001_3day.csv"),
+  transitions = try(transition_dates(paste0(tempdir(),"/harvard_DB_1000_3day.csv"),
                                      plot = TRUE))
   dev.off()
-  
+
   # test truncate
-  truncate = try(truncate_phenocam(paste0(tempdir(),"/harvard_DB_0001_3day.csv"),
+  truncate = try(truncate_phenocam(paste0(tempdir(),"/harvard_DB_1000_3day.csv"),
                                    year = 2015))
-  
+
   # test outlier routine
   png(paste0(tempdir(),"/harvard_test.png"),900,900)
-  outliers = try(detect_outliers(paste0(tempdir(),"/harvard_DB_0001_3day.csv"),
+  outliers = try(detect_outliers(paste0(tempdir(),"/harvard_DB_1000_3day.csv"),
                                  plot = TRUE,
                                  snowflag = TRUE))
   dev.off()
-  
+
   # test expand
-  expand = try(expand_phenocam(paste0(tempdir(),"/harvard_DB_0001_3day.csv")))
-  
+  expand = try(expand_phenocam(paste0(tempdir(),"/harvard_DB_1000_3day.csv")))
+
   # smooth test
-  smooth = try(smooth_ts(paste0(tempdir(),"/harvard_DB_0001_3day.csv")))
-  
+  smooth = try(smooth_ts(paste0(tempdir(),"/harvard_DB_1000_3day.csv")))
+
   # test contract
-  contract = try(contract_phenocam(paste0(tempdir(),"/harvard_DB_0001_3day.csv")))
-  
+  contract = try(contract_phenocam(paste0(tempdir(),"/harvard_DB_1000_3day.csv")))
+
   # test grvi routine
-  grvi_test = try(grvi(paste0(tempdir(),"/harvard_DB_0001_3day.csv")))
+  grvi_test = try(grvi(paste0(tempdir(),"/harvard_DB_1000_3day.csv")))
 
   # check daylength routine
   dl = try(daylength(doy = 180,
                      latitude = 44))
-  
+
   # optimal span routine
   l = sin(seq(1,10,0.01))
   l = l + runif(length(l))
-  
+
   png(paste0(tempdir(),"/harvard_test.png"),900,900)
   os = try(optimal_span(l,
                         plot = TRUE))
   dev.off()
-  
+
   os_w = try(optimal_span(l,
                           weights = runif(length(l))))
 
@@ -81,7 +81,7 @@ test_that("check ancillary routines",{
           !inherits(os, "try-error") &
           !inherits(os_w, "try-error") &
           !inherits(grvi_test, "try-error")
-  
+
   # check if no error occured
   expect_true(check)
 })

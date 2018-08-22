@@ -5,8 +5,8 @@
 \title{Smooths a PhenoCam time series}
 \usage{
 smooth_ts(data, metrics = c("gcc_mean", "gcc_50", "gcc_75", "gcc_90",
-  "rcc_mean", "rcc_50", "rcc_75", "rcc_90"), force = TRUE, internal = TRUE,
-  out_dir = tempdir())
+  "rcc_mean", "rcc_50", "rcc_75", "rcc_90"), force = TRUE,
+  internal = TRUE, out_dir = tempdir())
 }
 \arguments{
 \item{data}{a PhenoCam data file or data structure}
@@ -38,15 +38,15 @@ to find an optimal smoothing parameter and curve.
 # download demo data (do not smooth)
 download_phenocam(site = "harvard$",
                   veg_type = "DB",
-                  roi_id = "1",
+                  roi_id = "1000",
                   frequency = "3",
                   smooth = FALSE)
 
 # smooth the downloaded file (and overwrite the original)
-smooth_ts(paste0(tempdir(),"/harvard_DB_0001_3day.csv"))
+smooth_ts(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
 
 # the function also works on a PhenoCam data frame
-df <- read_phenocam(paste0(tempdir(),"/harvard_DB_0001_3day.csv"))
+df <- read_phenocam(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
 df <- smooth_ts(df)
 }
 }

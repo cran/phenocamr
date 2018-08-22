@@ -29,11 +29,11 @@
 #' # at an aggregation frequency of 3-days.
 #' download_phenocam(site = "harvard$",
 #'                   veg_type = "DB",
-#'                   roi_id = "1",
+#'                   roi_id = "1000",
 #'                   frequency = "3")
 #'  
 #' # read phenocam data into phenocamr data structure                  
-#' df <- read_phenocam(paste0(tempdir(),"/harvard_DB_0001_3day.csv"))
+#' df <- read_phenocam(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
 #'                   
 #' }
 
@@ -55,8 +55,13 @@ download_phenocam = function(site = "harvard$",
     stop("No correct frequency provided...")
   }
   
-  # get site listing
-  site_list = jsonlite::fromJSON("https://phenocam.sr.unh.edu/webcam/roi/roilistinfo/")
+  # get roi site listing
+  site_list = list_rois()
+  
+  # check for server timeout
+  if (inherits(site_list,"try-error")){
+    stop("Downloading ROI list failed...")
+  }
 
   # is there a site name?
   # this excludes any geographic constraints
@@ -114,23 +119,23 @@ download_phenocam = function(site = "harvard$",
     }
 
     # formulate output file location
-    output_filename = sprintf("%s/%s",
-                              out_dir,
-                              filename)
+    output_filename = file.path(out_dir, filename)
 
     # download data + feedback
     cat(sprintf("Downloading: %s\n", filename))
     
-    url = sprintf("%s/%s",data_location, filename)
-    status = try(curl::curl_download(url,
-                                     output_filename,
-                                     quiet = TRUE),
-                 silent = TRUE)
-
-    # skip if download failed
-    if (inherits(status,"try-error")){
+    # try to download the data
+    error = try(httr::GET(url = sprintf("%s/%s",data_location, filename),
+                          httr::timeout(15),
+                          httr::write_disk(path = output_filename, overwrite = TRUE)))
+    
+    # trap errors on download, return a general error statement
+    # with the most common causes
+    if (httr::http_error(error) | inherits(error, "try-error")){
+      try(file.remove(output_filename))
       warning(sprintf("failed to download: %s", filename))
       next
+      
     } else {
       
       # don't do any post-procesing on raw data
@@ -151,7 +156,7 @@ download_phenocam = function(site = "harvard$",
       }
       
       # remove outliers (overwrites original file)
-      if (outlier_detection == TRUE){
+      if (outlier_detection){
         
         # feedback
         cat("Flagging outliers! \n")
@@ -167,7 +172,7 @@ download_phenocam = function(site = "harvard$",
       }
       
       # Smooth data
-      if (smooth == TRUE){
+      if (smooth){
         # feedback
         cat("Smoothing time series! \n")
         
@@ -182,7 +187,7 @@ download_phenocam = function(site = "harvard$",
       }
 
       # Output transition dates
-      if (phenophase == TRUE){
+      if (phenophase){
         
         # feedback
         cat("Estimating transition dates! \n")
@@ -200,7 +205,7 @@ download_phenocam = function(site = "harvard$",
       }
 
       # merge with daymet
-      if (daymet == TRUE){
+      if (daymet){
         
         # feedback
         cat("Merging Daymet Data! \n")
@@ -217,7 +222,7 @@ download_phenocam = function(site = "harvard$",
       }
       
       # contract datasets if so desired
-      if (contract == TRUE & df$frequency == "3day"){
+      if (contract & df$frequency == "3day"){
         
         # feedback
         cat("Contracting Data! \n")
