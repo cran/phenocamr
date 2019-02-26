@@ -12,54 +12,284 @@
 
 <meta name="author" content="Koen Hufkens" />
 
-<meta name="date" content="2018-08-22" />
+<meta name="date" content="2019-02-26" />
 
 <title>phenocamr</title>
 
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 </head>
 
@@ -70,257 +300,256 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">phenocamr</h1>
 <h4 class="author"><em>Koen Hufkens</em></h4>
-<h4 class="date"><em>2018-08-22</em></h4>
+<h4 class="date"><em>2019-02-26</em></h4>
 
 
 
 <p>A programmatic interface to the <a href="https://phenocam.sr.unh.edu/">PhenoCam web services</a>. Allows for easy downloads of PhenoCam near-surface remote sensing greenness (Gcc) time series directly to your R workspace or your computer. Post-processing allows for the smoothing of the time-series and the calculation of phenological transition dates as a final product.</p>
 <p>The package gives access to the latest generated PhenoCam time series (at most 1-day old for running sites) and allows for the extraction of up-to-date phenological transition dates. However, the data acquired through the package will not be curated and vetted for data quality.</p>
-<p>For a quality controlled and fully described dataset I suggest downloading the dataset as described by Richardson et al. (2018). This dataset uses the phenocamr packages in its final processing steps however quality control is gauranteed through careful review of the data. The data can be interactivly explored on <a href="http://explore.phenocam.us">explore.phenocam.us</a> and downloaded in full from the <a href="https://daac.ornl.gov/cgi-bin/dsviewer.pl?ds_id=1511">ORNL DAAC</a>. If in need of more recent data you can use the package and its functionality but be mindful of quality control especially the region-of-interest (ROI) used and potential unaccounted field-of-view (FOV) shifts in the dataset.</p>
+<p>For a quality controlled and fully described dataset I suggest downloading the dataset as described by Richardson et al. (2018). This dataset uses the phenocamr packages in its final processing steps however quality control is gauranteed through careful review of the data. The data can be interactivly explored on <a href="http://explore.phenocam.us">explore.phenocam.us</a> and downloaded in full from the <a href="https://daac.ornl.gov/cgi-bin/dsviewer.pl?ds_id=1511">ORNL DAAC</a>. If in need of more recent data you can use the package and its functionality but be mindful of quality control especially the region-of-interest (ROI) used and potential unaccounted field-of-view (FOV) shifts in the dataset.</p>
 <div id="a-worked-example" class="section level2">
 <h2>A worked example</h2>
 <p>Below I describe the most common use of the package, downloading recent PhenoCam time series and generating phenological transition dates for a given site and data type. I intentionally disable most automated processing and step through some of the routines to illustrate the workflow which normally happens internally to the main function download_phenocam(). Generated transition date files can be used in later analysis or modelling exercises using for example the <a href="https://github.com/khufkens/phenor">phenor R package</a>.</p>
 <div id="select-a-site" class="section level3">
 <h3>Select a site</h3>
 <p>A full list of meta-data for all sites can be queried using the list_sites() function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sites &lt;-<span class="st"> </span><span class="kw">list_sites</span>()
-<span class="kw">print</span>(<span class="kw">head</span>(sites))
-<span class="co">#&gt;   wwf_biome nimage</span>
-<span class="co">#&gt; 1         4  41592</span>
-<span class="co">#&gt; 2        12  34695</span>
-<span class="co">#&gt; 3        12   2639</span>
-<span class="co">#&gt; 4         5  43429</span>
-<span class="co">#&gt; 5         4   1452</span>
-<span class="co">#&gt; 6         5  44629</span>
-<span class="co">#&gt;                                                                                                                                                                                                                 site_acknowledgements</span>
-<span class="co">#&gt; 1                                                                                                                   Camera images from Acadia National Park are provided courtesy of the National Park Service Air Resources Program.</span>
-<span class="co">#&gt; 2                                                                                                         Camera images from Agua Tibia Wilderness are provided courtesy of the USDA Forest Service Air Resources Management Program.</span>
-<span class="co">#&gt; 3                                                                                                         Camera images from Agua Tibia Wilderness are provided courtesy of the USDA Forest Service Air Resources Management Program.</span>
-<span class="co">#&gt; 4                                                                                                                 Camera images from Yosemite National Park are provided courtesy of the National Park Service Air Resources Program.</span>
-<span class="co">#&gt; 5                                                                                                                                                                                                                                    </span>
-<span class="co">#&gt; 6 Research at the Alligator River flux site is supported by DOE NICCR (award 08-SC-NICCR-1072), DOE-TES (awards 11-DE-SC-0006700 and 7090112), USDA Forest Service (award 13-JV-11330110-081) and USDA-NIFA (award 2014-67003-22068).</span>
-<span class="co">#&gt;   MAT_site   date_end landcover_igbp koeppen_geiger           site</span>
-<span class="co">#&gt; 1       NA 2018-08-21              5            Dfb         acadia</span>
-<span class="co">#&gt; 2       NA 2018-08-21              7            Csa  aguatibiaeast</span>
-<span class="co">#&gt; 3       NA 2006-10-25              7            Csa aguatibianorth</span>
-<span class="co">#&gt; 4       NA 2018-08-21              8            Csb       ahwahnee</span>
-<span class="co">#&gt; 5       NA 2015-10-13             13            Cfa      alleypond</span>
-<span class="co">#&gt; 6     16.6 2018-08-21              5            Cfa alligatorriver</span>
-<span class="co">#&gt;   infrared active MAT_daymet site_type      lat ecoregion</span>
-<span class="co">#&gt; 1        N   TRUE       7.05       III 44.37694         8</span>
-<span class="co">#&gt; 2        N   TRUE      15.75       III 33.62200        11</span>
-<span class="co">#&gt; 3        N  FALSE      16.00       III 33.60222        11</span>
-<span class="co">#&gt; 4        N   TRUE      12.25       III 37.74670         6</span>
-<span class="co">#&gt; 5        N  FALSE      11.90        II 40.74284         8</span>
-<span class="co">#&gt; 6        Y   TRUE      16.75         I 35.78790         8</span>
-<span class="co">#&gt;   camera_description flux_sitenames tzoffset                 group</span>
-<span class="co">#&gt; 1            unknown                      -5 National Park Service</span>
-<span class="co">#&gt; 2            unknown                      -8                  USFS</span>
-<span class="co">#&gt; 3            unknown                      -8                  USFS</span>
-<span class="co">#&gt; 4            unknown                      -8 National Park Service</span>
-<span class="co">#&gt; 5  StarDot NetCam SC                      -5          SmartForests</span>
-<span class="co">#&gt; 6  StarDot NetCam SC         US-NC4       -5              PhenoCam</span>
-<span class="co">#&gt;                                       contact1</span>
-<span class="co">#&gt; 1         Dee Morse &lt;dee_morse AT nps DOT gov&gt;</span>
-<span class="co">#&gt; 2  Ann E Mebane &lt;amebane AT fs DOT fed DOT us&gt;</span>
-<span class="co">#&gt; 3                                             </span>
-<span class="co">#&gt; 4         Dee Morse &lt;dee_morse AT nps DOT gov&gt;</span>
-<span class="co">#&gt; 5 Mary Martin &lt;mary DOT martin AT unh DOT edu&gt;</span>
-<span class="co">#&gt; 6     Asko Noormets &lt;noormets AT tamu DOT edu&gt;</span>
-<span class="co">#&gt;                                         contact2 flux_data MAP_site</span>
-<span class="co">#&gt; 1         John Gross &lt;John_Gross AT nps DOT gov&gt;     FALSE       NA</span>
-<span class="co">#&gt; 2  Kristi Savig &lt;KSavig AT air-resource DOT com&gt;     FALSE       NA</span>
-<span class="co">#&gt; 3                                                    FALSE       NA</span>
-<span class="co">#&gt; 4         John Gross &lt;John_Gross AT nps DOT gov&gt;     FALSE       NA</span>
-<span class="co">#&gt; 5 Nicholas Grant &lt;ngrant02 AT fs DOT fed DOT us&gt;     FALSE       NA</span>
-<span class="co">#&gt; 6          John King &lt;john_king AT ncsu DOT edu&gt;      TRUE     1310</span>
-<span class="co">#&gt;   camera_orientation secondary_veg_type date_start        lon</span>
-<span class="co">#&gt; 1                 NE                 EN 2007-03-15  -68.26083</span>
-<span class="co">#&gt; 2                 SW                    2007-08-16 -116.86700</span>
-<span class="co">#&gt; 3                 NE                    2003-10-01 -117.34368</span>
-<span class="co">#&gt; 4                  E                 GR 2008-08-28 -119.58160</span>
-<span class="co">#&gt; 5                  S                    2014-11-05  -73.74304</span>
-<span class="co">#&gt; 6                  N                 WL 2012-05-03  -75.90380</span>
-<span class="co">#&gt;                                                   dominant_species</span>
-<span class="co">#&gt; 1                                                                 </span>
-<span class="co">#&gt; 2                                                                 </span>
-<span class="co">#&gt; 3                                                                 </span>
-<span class="co">#&gt; 4                                                                 </span>
-<span class="co">#&gt; 5                                                                 </span>
-<span class="co">#&gt; 6 Nyssa sylvatica, Taxodium distichum, Nyssa aquatica, Acer rubrum</span>
-<span class="co">#&gt;                                               site_description elev</span>
-<span class="co">#&gt; 1 Acadia National Park, McFarland Hill, near Bar Harbor, Maine  158</span>
-<span class="co">#&gt; 2                            Agua Tibia Wilderness, California 1086</span>
-<span class="co">#&gt; 3                            Agua Tibia Wilderness, California 1090</span>
-<span class="co">#&gt; 4          Ahwahnee Meadow, Yosemite National Park, California 1199</span>
-<span class="co">#&gt; 5                                 Alley Pond, Queens, New York   61</span>
-<span class="co">#&gt; 6     Alligator River National Wildlife Refuge, North Carolina    1</span>
-<span class="co">#&gt;   MAT_worldclim MAP_worldclim MAP_daymet flux_networks   method</span>
-<span class="co">#&gt; 1           6.5          1303       1439               httppull</span>
-<span class="co">#&gt; 2          14.9           504        483               httppull</span>
-<span class="co">#&gt; 3          13.8           729        489               httppull</span>
-<span class="co">#&gt; 4          11.8           886        871               httppull</span>
-<span class="co">#&gt; 5          11.7          1109       1263                ftppush</span>
-<span class="co">#&gt; 6          16.4          1312       1371     AMERIFLUX  ftppush</span>
-<span class="co">#&gt;   primary_veg_type</span>
-<span class="co">#&gt; 1               DB</span>
-<span class="co">#&gt; 2               SH</span>
-<span class="co">#&gt; 3               SH</span>
-<span class="co">#&gt; 4               EN</span>
-<span class="co">#&gt; 5               DB</span>
-<span class="co">#&gt; 6               DB</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">sites &lt;-<span class="st"> </span><span class="kw">list_sites</span>()</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">head</span>(sites)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">#&gt;   wwf_biome nimage</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co">#&gt; 1         4  44089</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co">#&gt; 2        12  36615</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt; 3        12   2639</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt; 4         5  46042</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt; 5         4   1452</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt; 6         5  46733</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt;                                                                                                                                                                                                                 site_acknowledgements</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt; 1                                                                                                                   Camera images from Acadia National Park are provided courtesy of the National Park Service Air Resources Program.</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; 2                                                                                                         Camera images from Agua Tibia Wilderness are provided courtesy of the USDA Forest Service Air Resources Management Program.</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; 3                                                                                                         Camera images from Agua Tibia Wilderness are provided courtesy of the USDA Forest Service Air Resources Management Program.</span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; 4                                                                                                                 Camera images from Yosemite National Park are provided courtesy of the National Park Service Air Resources Program.</span></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; 5                                                                                                                                                                                                                                    </span></a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt; 6 Research at the Alligator River flux site is supported by DOE NICCR (award 08-SC-NICCR-1072), DOE-TES (awards 11-DE-SC-0006700 and 7090112), USDA Forest Service (award 13-JV-11330110-081) and USDA-NIFA (award 2014-67003-22068).</span></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="co">#&gt;   MAT_site   date_end landcover_igbp koeppen_geiger           site</span></a>
+<a class="sourceLine" id="cb1-18" title="18"><span class="co">#&gt; 1       NA 2019-02-25              5            Dfb         acadia</span></a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="co">#&gt; 2       NA 2019-01-25              7            Csa  aguatibiaeast</span></a>
+<a class="sourceLine" id="cb1-20" title="20"><span class="co">#&gt; 3       NA 2006-10-25              7            Csa aguatibianorth</span></a>
+<a class="sourceLine" id="cb1-21" title="21"><span class="co">#&gt; 4       NA 2019-02-25              8            Csb       ahwahnee</span></a>
+<a class="sourceLine" id="cb1-22" title="22"><span class="co">#&gt; 5       NA 2015-10-13             13            Cfa      alleypond</span></a>
+<a class="sourceLine" id="cb1-23" title="23"><span class="co">#&gt; 6     16.6 2019-02-25              5            Cfa alligatorriver</span></a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="co">#&gt;   infrared active MAT_daymet site_type      lat ecoregion</span></a>
+<a class="sourceLine" id="cb1-25" title="25"><span class="co">#&gt; 1        N   TRUE       7.05       III 44.37694         8</span></a>
+<a class="sourceLine" id="cb1-26" title="26"><span class="co">#&gt; 2        N   TRUE      15.75       III 33.62200        11</span></a>
+<a class="sourceLine" id="cb1-27" title="27"><span class="co">#&gt; 3        N  FALSE      16.00       III 33.60222        11</span></a>
+<a class="sourceLine" id="cb1-28" title="28"><span class="co">#&gt; 4        N   TRUE      12.25       III 37.74670         6</span></a>
+<a class="sourceLine" id="cb1-29" title="29"><span class="co">#&gt; 5        N  FALSE      11.90        II 40.74284         8</span></a>
+<a class="sourceLine" id="cb1-30" title="30"><span class="co">#&gt; 6        Y   TRUE      16.75         I 35.78790         8</span></a>
+<a class="sourceLine" id="cb1-31" title="31"><span class="co">#&gt;   camera_description flux_sitenames tzoffset                 group</span></a>
+<a class="sourceLine" id="cb1-32" title="32"><span class="co">#&gt; 1            unknown                      -5 National Park Service</span></a>
+<a class="sourceLine" id="cb1-33" title="33"><span class="co">#&gt; 2            unknown                      -8                  USFS</span></a>
+<a class="sourceLine" id="cb1-34" title="34"><span class="co">#&gt; 3            unknown                      -8                  USFS</span></a>
+<a class="sourceLine" id="cb1-35" title="35"><span class="co">#&gt; 4            unknown                      -8 National Park Service</span></a>
+<a class="sourceLine" id="cb1-36" title="36"><span class="co">#&gt; 5  StarDot NetCam SC                      -5          SmartForests</span></a>
+<a class="sourceLine" id="cb1-37" title="37"><span class="co">#&gt; 6  StarDot NetCam SC         US-NC4       -5              PhenoCam</span></a>
+<a class="sourceLine" id="cb1-38" title="38"><span class="co">#&gt;                                       contact1</span></a>
+<a class="sourceLine" id="cb1-39" title="39"><span class="co">#&gt; 1         Dee Morse &lt;dee_morse AT nps DOT gov&gt;</span></a>
+<a class="sourceLine" id="cb1-40" title="40"><span class="co">#&gt; 2  Ann E Mebane &lt;amebane AT fs DOT fed DOT us&gt;</span></a>
+<a class="sourceLine" id="cb1-41" title="41"><span class="co">#&gt; 3                                             </span></a>
+<a class="sourceLine" id="cb1-42" title="42"><span class="co">#&gt; 4         Dee Morse &lt;dee_morse AT nps DOT gov&gt;</span></a>
+<a class="sourceLine" id="cb1-43" title="43"><span class="co">#&gt; 5 Mary Martin &lt;mary DOT martin AT unh DOT edu&gt;</span></a>
+<a class="sourceLine" id="cb1-44" title="44"><span class="co">#&gt; 6     Asko Noormets &lt;noormets AT tamu DOT edu&gt;</span></a>
+<a class="sourceLine" id="cb1-45" title="45"><span class="co">#&gt;                                         contact2 flux_data MAP_site</span></a>
+<a class="sourceLine" id="cb1-46" title="46"><span class="co">#&gt; 1         John Gross &lt;John_Gross AT nps DOT gov&gt;     FALSE       NA</span></a>
+<a class="sourceLine" id="cb1-47" title="47"><span class="co">#&gt; 2  Kristi Savig &lt;KSavig AT air-resource DOT com&gt;     FALSE       NA</span></a>
+<a class="sourceLine" id="cb1-48" title="48"><span class="co">#&gt; 3                                                    FALSE       NA</span></a>
+<a class="sourceLine" id="cb1-49" title="49"><span class="co">#&gt; 4         John Gross &lt;John_Gross AT nps DOT gov&gt;     FALSE       NA</span></a>
+<a class="sourceLine" id="cb1-50" title="50"><span class="co">#&gt; 5 Nicholas Grant &lt;ngrant02 AT fs DOT fed DOT us&gt;     FALSE       NA</span></a>
+<a class="sourceLine" id="cb1-51" title="51"><span class="co">#&gt; 6          John King &lt;john_king AT ncsu DOT edu&gt;      TRUE     1310</span></a>
+<a class="sourceLine" id="cb1-52" title="52"><span class="co">#&gt;   camera_orientation secondary_veg_type date_start        lon</span></a>
+<a class="sourceLine" id="cb1-53" title="53"><span class="co">#&gt; 1                 NE                 EN 2007-03-15  -68.26083</span></a>
+<a class="sourceLine" id="cb1-54" title="54"><span class="co">#&gt; 2                 SW                    2007-08-16 -116.86700</span></a>
+<a class="sourceLine" id="cb1-55" title="55"><span class="co">#&gt; 3                 NE                    2003-10-01 -117.34368</span></a>
+<a class="sourceLine" id="cb1-56" title="56"><span class="co">#&gt; 4                  E                 GR 2008-08-28 -119.58160</span></a>
+<a class="sourceLine" id="cb1-57" title="57"><span class="co">#&gt; 5                  S                    2014-11-05  -73.74304</span></a>
+<a class="sourceLine" id="cb1-58" title="58"><span class="co">#&gt; 6                  N                 WL 2012-05-03  -75.90380</span></a>
+<a class="sourceLine" id="cb1-59" title="59"><span class="co">#&gt;                                                   dominant_species</span></a>
+<a class="sourceLine" id="cb1-60" title="60"><span class="co">#&gt; 1                                                                 </span></a>
+<a class="sourceLine" id="cb1-61" title="61"><span class="co">#&gt; 2                                                                 </span></a>
+<a class="sourceLine" id="cb1-62" title="62"><span class="co">#&gt; 3                                                                 </span></a>
+<a class="sourceLine" id="cb1-63" title="63"><span class="co">#&gt; 4                                                                 </span></a>
+<a class="sourceLine" id="cb1-64" title="64"><span class="co">#&gt; 5                                                                 </span></a>
+<a class="sourceLine" id="cb1-65" title="65"><span class="co">#&gt; 6 Nyssa sylvatica, Taxodium distichum, Nyssa aquatica, Acer rubrum</span></a>
+<a class="sourceLine" id="cb1-66" title="66"><span class="co">#&gt;                                               site_description elev</span></a>
+<a class="sourceLine" id="cb1-67" title="67"><span class="co">#&gt; 1 Acadia National Park, McFarland Hill, near Bar Harbor, Maine  158</span></a>
+<a class="sourceLine" id="cb1-68" title="68"><span class="co">#&gt; 2                            Agua Tibia Wilderness, California 1086</span></a>
+<a class="sourceLine" id="cb1-69" title="69"><span class="co">#&gt; 3                            Agua Tibia Wilderness, California 1090</span></a>
+<a class="sourceLine" id="cb1-70" title="70"><span class="co">#&gt; 4          Ahwahnee Meadow, Yosemite National Park, California 1199</span></a>
+<a class="sourceLine" id="cb1-71" title="71"><span class="co">#&gt; 5                                 Alley Pond, Queens, New York   61</span></a>
+<a class="sourceLine" id="cb1-72" title="72"><span class="co">#&gt; 6     Alligator River National Wildlife Refuge, North Carolina    1</span></a>
+<a class="sourceLine" id="cb1-73" title="73"><span class="co">#&gt;   MAT_worldclim MAP_worldclim MAP_daymet flux_networks   method</span></a>
+<a class="sourceLine" id="cb1-74" title="74"><span class="co">#&gt; 1           6.5          1303       1439               httppull</span></a>
+<a class="sourceLine" id="cb1-75" title="75"><span class="co">#&gt; 2          14.9           504        483               httppull</span></a>
+<a class="sourceLine" id="cb1-76" title="76"><span class="co">#&gt; 3          13.8           729        489               httppull</span></a>
+<a class="sourceLine" id="cb1-77" title="77"><span class="co">#&gt; 4          11.8           886        871               httppull</span></a>
+<a class="sourceLine" id="cb1-78" title="78"><span class="co">#&gt; 5          11.7          1109       1263                ftppush</span></a>
+<a class="sourceLine" id="cb1-79" title="79"><span class="co">#&gt; 6          16.4          1312       1371     AMERIFLUX  ftppush</span></a>
+<a class="sourceLine" id="cb1-80" title="80"><span class="co">#&gt;   primary_veg_type</span></a>
+<a class="sourceLine" id="cb1-81" title="81"><span class="co">#&gt; 1               DB</span></a>
+<a class="sourceLine" id="cb1-82" title="82"><span class="co">#&gt; 2               SH</span></a>
+<a class="sourceLine" id="cb1-83" title="83"><span class="co">#&gt; 3               SH</span></a>
+<a class="sourceLine" id="cb1-84" title="84"><span class="co">#&gt; 4               EN</span></a>
+<a class="sourceLine" id="cb1-85" title="85"><span class="co">#&gt; 5               DB</span></a>
+<a class="sourceLine" id="cb1-86" title="86"><span class="co">#&gt; 6               DB</span></a></code></pre></div>
 <p>To select a site first download an overview meta-data table of all available sites together with their ROI id’s and vegetation type and a limited set of meta-data parameters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rois &lt;-<span class="st"> </span><span class="kw">list_rois</span>()
-<span class="kw">print</span>(<span class="kw">head</span>(rois))
-<span class="co">#&gt;                                                                   description</span>
-<span class="co">#&gt; 1                                        Deciduous trees in foreground center</span>
-<span class="co">#&gt; 2 Mixed forest in foreground.  Start new timeseries due to camera/FOV change.</span>
-<span class="co">#&gt; 3                                                              General canopy</span>
-<span class="co">#&gt; 4                                                  Grassy field in foreground</span>
-<span class="co">#&gt; 5                                                  Grassy field in foreground</span>
-<span class="co">#&gt; 6                                                  Grassy field in foreground</span>
-<span class="co">#&gt;   first_date           site      lat site_years missing_data_pct veg_type</span>
-<span class="co">#&gt; 1 2007-03-15         acadia 44.37694        9.8                7       DB</span>
-<span class="co">#&gt; 2 2017-10-11         acadia 44.37694        0.8                9       DB</span>
-<span class="co">#&gt; 3 2003-10-02 aguatibianorth 33.60222        2.5               19       XX</span>
-<span class="co">#&gt; 4 2008-08-29       ahwahnee 37.74670        2.8                9       GR</span>
-<span class="co">#&gt; 5 2012-03-29       ahwahnee 37.74670        3.3                0       GR</span>
-<span class="co">#&gt; 6 2015-07-28       ahwahnee 37.74670        3.0                1       GR</span>
-<span class="co">#&gt;          lon  last_date roi_id_number data_release</span>
-<span class="co">#&gt; 1  -68.26083 2017-09-20          1000          pre</span>
-<span class="co">#&gt; 2  -68.26083 2018-08-21          2000          pre</span>
-<span class="co">#&gt; 3 -117.34368 2006-10-26             1          pre</span>
-<span class="co">#&gt; 4 -119.58160 2011-10-14             1           v1</span>
-<span class="co">#&gt; 5 -119.58160 2015-07-01             2           v1</span>
-<span class="co">#&gt; 6 -119.58160 2018-08-21             3          pre</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">rois &lt;-<span class="st"> </span><span class="kw">list_rois</span>()</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">head</span>(rois)</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;                                                                   description</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; 1                                        Deciduous trees in foreground center</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; 2 Mixed forest in foreground.  Start new timeseries due to camera/FOV change.</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt; 3                             GR veg type in foreground. Multiple FOV shifts.</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; 4                                                  GR veg type in foreground.</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; 5                                                  GR veg type in foreground.</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt; 6                                                           understory plants</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt;   first_date      site      lat site_years missing_data_pct veg_type</span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; 1 2007-03-15    acadia 44.37694        9.8                7       DB</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; 2 2017-10-11    acadia 44.37694        1.3                6       DB</span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; 3 2008-08-29  ahwahnee 37.74670        2.8                9       GR</span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; 4 2012-05-04  ahwahnee 37.74670        3.2                0       GR</span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 5 2015-07-28  ahwahnee 37.74670        3.6                0       GR</span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; 6 2014-11-04 alleypond 40.74284        0.7               24       UN</span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt;          lon  last_date roi_id_number data_release</span></a>
+<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; 1  -68.26083 2017-09-20          1000          pre</span></a>
+<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; 2  -68.26083 2019-02-25          2000          pre</span></a>
+<a class="sourceLine" id="cb2-20" title="20"><span class="co">#&gt; 3 -119.58160 2011-10-14          1000          pre</span></a>
+<a class="sourceLine" id="cb2-21" title="21"><span class="co">#&gt; 4 -119.58160 2015-07-01          2000          pre</span></a>
+<a class="sourceLine" id="cb2-22" title="22"><span class="co">#&gt; 5 -119.58160 2019-02-25          3000          pre</span></a>
+<a class="sourceLine" id="cb2-23" title="23"><span class="co">#&gt; 6  -73.74304 2015-10-14          1000          pre</span></a></code></pre></div>
 </div>
 <div id="download-a-phenocam-time-series." class="section level3">
 <h3>Download a PhenoCam time series.</h3>
 <p>The below code shows you how to download a PhenoCam time series for the “<strong>harvard</strong>” site, ROI (roi_id) 1 and a time step frequency of 3-days. In this case the default outlier detection and smoothing routines has been disabled and will be run separately in subsequent steps. In normal use these will be enabled by default. The default output directory is tempdir() but any directory can be specified for data management purposes. If default settings are maintained, outlier detection and smoothing will be performed automatically. If so desired phenology dates can be estimated in one pass. In the latter case new data will be written in the same directory as specified for downloading the time series data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">download_phenocam</span>(<span class="dt">site =</span> <span class="st">&quot;harvard$&quot;</span>,
-                    <span class="dt">veg_type =</span> <span class="st">&quot;DB&quot;</span>,
-                    <span class="dt">roi_id =</span> <span class="st">&quot;1000&quot;</span>,
-                    <span class="dt">frequency =</span> <span class="dv">3</span>,
-                    <span class="dt">outlier_detection =</span> <span class="ot">FALSE</span>,
-                    <span class="dt">smooth =</span> <span class="ot">FALSE</span>,
-                    <span class="dt">out_dir =</span> <span class="kw">tempdir</span>())
-<span class="co">#&gt; Downloading: harvard_DB_1000_3day.csv</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">  <span class="kw">download_phenocam</span>(<span class="dt">site =</span> <span class="st">&quot;harvard$&quot;</span>,</a>
+<a class="sourceLine" id="cb3-2" title="2">                    <span class="dt">veg_type =</span> <span class="st">&quot;DB&quot;</span>,</a>
+<a class="sourceLine" id="cb3-3" title="3">                    <span class="dt">roi_id =</span> <span class="st">&quot;1000&quot;</span>,</a>
+<a class="sourceLine" id="cb3-4" title="4">                    <span class="dt">frequency =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb3-5" title="5">                    <span class="dt">outlier_detection =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6">                    <span class="dt">smooth =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb3-7" title="7">                    <span class="dt">out_dir =</span> <span class="kw">tempdir</span>())</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; Downloading: harvard_DB_1000_3day.csv</span></a></code></pre></div>
 <p>After downloading we read in the data from disk. The data has a header and is comma separated.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_phenocam</span>(<span class="kw">file.path</span>(<span class="kw">tempdir</span>(),<span class="st">&quot;harvard_DB_1000_3day.csv&quot;</span>))
-
-<span class="kw">print</span>(<span class="kw">str</span>(df))
-<span class="co">#&gt; List of 10</span>
-<span class="co">#&gt;  $ site          : chr &quot;harvard&quot;</span>
-<span class="co">#&gt;  $ veg_type      : chr &quot;DB&quot;</span>
-<span class="co">#&gt;  $ roi_id        : chr &quot;1000&quot;</span>
-<span class="co">#&gt;  $ frequency     : chr &quot;3day&quot;</span>
-<span class="co">#&gt;  $ lat           : num 42.5</span>
-<span class="co">#&gt;  $ lon           : num -72.2</span>
-<span class="co">#&gt;  $ elev          : num 340</span>
-<span class="co">#&gt;  $ solar_elev_min: num 10</span>
-<span class="co">#&gt;  $ header        : Named chr [1:24] NA NA NA &quot;harvard&quot; ...</span>
-<span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:24] &quot;#&quot; &quot;# 3-day summary product time series for harvard&quot; &quot;#&quot; &quot;# Site&quot; ...</span>
-<span class="co">#&gt;  $ data          :'data.frame':  3972 obs. of  32 variables:</span>
-<span class="co">#&gt;   ..$ date                : chr [1:3972] &quot;2008-01-05&quot; &quot;2008-01-06&quot; &quot;2008-01-07&quot; &quot;2008-01-08&quot; ...</span>
-<span class="co">#&gt;   ..$ year                : int [1:3972] 2008 2008 2008 2008 2008 2008 2008 2008 2008 2008 ...</span>
-<span class="co">#&gt;   ..$ doy                 : int [1:3972] 5 6 7 8 9 10 11 12 13 14 ...</span>
-<span class="co">#&gt;   ..$ image_count         : int [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ midday_filename     : chr [1:3972] NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ midday_r            : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ midday_g            : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ midday_b            : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ midday_gcc          : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ midday_rcc          : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ r_mean              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ r_std               : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ g_mean              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ g_std               : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ b_mean              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ b_std               : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ gcc_mean            : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ gcc_std             : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ gcc_50              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ gcc_75              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ gcc_90              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ rcc_mean            : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ rcc_std             : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ rcc_50              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ rcc_75              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ rcc_90              : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ max_solar_elev      : num [1:3972] NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ snow_flag           : logi [1:3972] NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ outlierflag_gcc_mean: logi [1:3972] NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ outlierflag_gcc_50  : logi [1:3972] NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ outlierflag_gcc_75  : logi [1:3972] NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ outlierflag_gcc_90  : logi [1:3972] NA NA NA NA NA NA ...</span>
-<span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr &quot;phenocamr&quot;</span>
-<span class="co">#&gt; NULL</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">df &lt;-<span class="st"> </span><span class="kw">read_phenocam</span>(<span class="kw">file.path</span>(<span class="kw">tempdir</span>(),<span class="st">&quot;harvard_DB_1000_3day.csv&quot;</span>))</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">print</span>(<span class="kw">str</span>(df))</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; List of 10</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt;  $ site          : chr &quot;harvard&quot;</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt;  $ veg_type      : chr &quot;DB&quot;</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt;  $ roi_id        : chr &quot;1000&quot;</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;  $ frequency     : chr &quot;3day&quot;</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt;  $ lat           : num 42.5</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt;  $ lon           : num -72.2</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt;  $ elev          : num 340</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt;  $ solar_elev_min: num 10</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt;  $ header        : Named chr [1:24] NA NA NA &quot;harvard&quot; ...</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:24] &quot;#&quot; &quot;# 3-day summary product time series for harvard&quot; &quot;#&quot; &quot;# Site&quot; ...</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt;  $ data          :&#39;data.frame&#39;:  4160 obs. of  32 variables:</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt;   ..$ date                : chr [1:4160] &quot;2008-01-05&quot; &quot;2008-01-06&quot; &quot;2008-01-07&quot; &quot;2008-01-08&quot; ...</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt;   ..$ year                : int [1:4160] 2008 2008 2008 2008 2008 2008 2008 2008 2008 2008 ...</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="co">#&gt;   ..$ doy                 : int [1:4160] 5 6 7 8 9 10 11 12 13 14 ...</span></a>
+<a class="sourceLine" id="cb4-18" title="18"><span class="co">#&gt;   ..$ image_count         : int [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-19" title="19"><span class="co">#&gt;   ..$ midday_filename     : chr [1:4160] NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-20" title="20"><span class="co">#&gt;   ..$ midday_r            : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-21" title="21"><span class="co">#&gt;   ..$ midday_g            : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-22" title="22"><span class="co">#&gt;   ..$ midday_b            : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-23" title="23"><span class="co">#&gt;   ..$ midday_gcc          : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-24" title="24"><span class="co">#&gt;   ..$ midday_rcc          : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-25" title="25"><span class="co">#&gt;   ..$ r_mean              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-26" title="26"><span class="co">#&gt;   ..$ r_std               : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-27" title="27"><span class="co">#&gt;   ..$ g_mean              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-28" title="28"><span class="co">#&gt;   ..$ g_std               : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-29" title="29"><span class="co">#&gt;   ..$ b_mean              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-30" title="30"><span class="co">#&gt;   ..$ b_std               : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-31" title="31"><span class="co">#&gt;   ..$ gcc_mean            : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-32" title="32"><span class="co">#&gt;   ..$ gcc_std             : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-33" title="33"><span class="co">#&gt;   ..$ gcc_50              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-34" title="34"><span class="co">#&gt;   ..$ gcc_75              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-35" title="35"><span class="co">#&gt;   ..$ gcc_90              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-36" title="36"><span class="co">#&gt;   ..$ rcc_mean            : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-37" title="37"><span class="co">#&gt;   ..$ rcc_std             : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-38" title="38"><span class="co">#&gt;   ..$ rcc_50              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-39" title="39"><span class="co">#&gt;   ..$ rcc_75              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-40" title="40"><span class="co">#&gt;   ..$ rcc_90              : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-41" title="41"><span class="co">#&gt;   ..$ max_solar_elev      : num [1:4160] NA NA NA NA NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-42" title="42"><span class="co">#&gt;   ..$ snow_flag           : logi [1:4160] NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-43" title="43"><span class="co">#&gt;   ..$ outlierflag_gcc_mean: logi [1:4160] NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-44" title="44"><span class="co">#&gt;   ..$ outlierflag_gcc_50  : logi [1:4160] NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-45" title="45"><span class="co">#&gt;   ..$ outlierflag_gcc_75  : logi [1:4160] NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-46" title="46"><span class="co">#&gt;   ..$ outlierflag_gcc_90  : logi [1:4160] NA NA NA NA NA NA ...</span></a>
+<a class="sourceLine" id="cb4-47" title="47"><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr &quot;phenocamr&quot;</span></a>
+<a class="sourceLine" id="cb4-48" title="48"><span class="co">#&gt; NULL</span></a></code></pre></div>
 </div>
 <div id="expanding-3-day-data-for-maximum-phenology-resolution" class="section level3">
 <h3>Expanding 3-day data for maximum phenology resolution</h3>
 <p>The downloaded time series is of a 3-day resolution. However, to correctly evaluate the phenology on a daily time step the time series needs to be expanded to this one day time step. This can be achieved using the expand_phenocam() function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">expand_phenocam</span>(df)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">df &lt;-<span class="st"> </span><span class="kw">expand_phenocam</span>(df)</a></code></pre></div>
 </div>
 <div id="detect-data-outlier" class="section level3">
 <h3>Detect data outlier</h3>
 <p>After reading in the data as a data frame you can apply the outlier detection routine. This routine uses an iterative method to detect outlier values in the Gcc time series. This routine filters out most spurious values due contaminiation by snow, mist, rain or otherwise very bright events. Warnings are suppressed as the routine is iterative and might throw warnings if it does not converge on a solution. This has no implications for the routine and data returned.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  df &lt;-<span class="st"> </span><span class="kw">detect_outliers</span>(df)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">  df &lt;-<span class="st"> </span><span class="kw">detect_outliers</span>(df)</a></code></pre></div>
 </div>
 <div id="smoothing-a-time-series" class="section level3">
 <h3>Smoothing a time series</h3>
 <p>After detecting outliers you can smooth the data. This function uses an AIC based methodology to find the opitmal loess smoothing window. Warnings are suppressed as the routine uses an optimization in which certain parameter settings return warnings. This has no implications for the routine and data returned.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  df &lt;-<span class="st"> </span><span class="kw">smooth_ts</span>(df)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">  df &lt;-<span class="st"> </span><span class="kw">smooth_ts</span>(df)</a></code></pre></div>
 </div>
 <div id="calculating-phenophases" class="section level3">
 <h3>Calculating phenophases</h3>
 <p>Finally, if smoothed data is available you can calculate phenological transition dates. This routine uses a PELT changepoint detection based approach to find meaningful seasonal cycles in the data. By default start of growing season dates are returned. If the reverse parameter is set to TRUE the end of growing season dates are returned. Dates are formatted as unix time and will be provided for three default threshold values (10 / 25 / 50%) of the Gcc amplitude.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">start_of_season &lt;-<span class="st"> </span><span class="kw">transition_dates</span>(df)
-<span class="kw">print</span>(<span class="kw">head</span>(start_of_season))
-<span class="co">#&gt;   transition_10 transition_25 transition_50 transition_10_lower_ci</span>
-<span class="co">#&gt; 1         14002         14007         14014                  14001</span>
-<span class="co">#&gt; 2         14361         14367         14374                  14357</span>
-<span class="co">#&gt; 3         14720         14724         14730                  14701</span>
-<span class="co">#&gt; 4         15096         15101         15107                  15092</span>
-<span class="co">#&gt; 5         15451         15461         15467                  15444</span>
-<span class="co">#&gt; 6         15825         15829         15835                  15824</span>
-<span class="co">#&gt;   transition_25_lower_ci transition_50_lower_ci transition_10_upper_ci</span>
-<span class="co">#&gt; 1                  14006                  14012                  14005</span>
-<span class="co">#&gt; 2                  14365                  14372                  14364</span>
-<span class="co">#&gt; 3                  14723                  14729                  14723</span>
-<span class="co">#&gt; 4                  15100                  15105                  15099</span>
-<span class="co">#&gt; 5                  15460                  15465                  15457</span>
-<span class="co">#&gt; 6                  15828                  15833                  15827</span>
-<span class="co">#&gt;   transition_25_upper_ci transition_50_upper_ci threshold_10 threshold_25</span>
-<span class="co">#&gt; 1                  14009                  14015      0.37666      0.39155</span>
-<span class="co">#&gt; 2                  14369                  14375      0.37693      0.39121</span>
-<span class="co">#&gt; 3                  14726                  14731      0.37737      0.38842</span>
-<span class="co">#&gt; 4                  15103                  15108      0.37998      0.39287</span>
-<span class="co">#&gt; 5                  15463                  15468      0.38307      0.39777</span>
-<span class="co">#&gt; 6                  15831                  15836      0.38060      0.39620</span>
-<span class="co">#&gt;   threshold_50 min_gcc max_gcc</span>
-<span class="co">#&gt; 1      0.42041 0.36936 0.46562</span>
-<span class="co">#&gt; 2      0.41848 0.36828 0.46187</span>
-<span class="co">#&gt; 3      0.41848 0.36912 0.46467</span>
-<span class="co">#&gt; 4      0.42230 0.37073 0.46878</span>
-<span class="co">#&gt; 5      0.42725 0.37275 0.47838</span>
-<span class="co">#&gt; 6      0.42533 0.37274 0.47138</span></code></pre></div>
-<p>Alternatively you can use the phenophases() function which is a wrapper of the transition_dates() function. However, as it potentially writes data to disk it needs additional information such as the roi_id, site name etc. The phenophases() function is the function which generated the final data products in the Richardson et al. (2018) paper. If used internally the output will be formatted in unix time, when written to file the dates will be human readable in YYYY-MM-DD format. Both start and end of season estimates will be provided.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phenology_dates &lt;-<span class="st"> </span><span class="kw">phenophases</span>(df, <span class="dt">internal =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">start_of_season &lt;-<span class="st"> </span><span class="kw">transition_dates</span>(df)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">print</span>(<span class="kw">head</span>(start_of_season))</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt;   transition_10 transition_25 transition_50 transition_10_lower_ci</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt; 1         14003         14007         14013                  14001</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt; 2         14361         14367         14374                  14357</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt; 3         14720         14724         14730                  14717</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt; 4         15096         15101         15107                  15092</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt; 5         15451         15461         15467                  15444</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt; 6         15826         15829         15835                  15824</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt;   transition_25_lower_ci transition_50_lower_ci transition_10_upper_ci</span></a>
+<a class="sourceLine" id="cb8-11" title="11"><span class="co">#&gt; 1                  14006                  14011                  14005</span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt; 2                  14365                  14372                  14364</span></a>
+<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt; 3                  14723                  14729                  14723</span></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt; 4                  15100                  15105                  15099</span></a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt; 5                  15460                  15465                  15457</span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt; 6                  15828                  15833                  15828</span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt;   transition_25_upper_ci transition_50_upper_ci threshold_10 threshold_25</span></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="co">#&gt; 1                  14009                  14015      0.37851      0.39155</span></a>
+<a class="sourceLine" id="cb8-19" title="19"><span class="co">#&gt; 2                  14369                  14375      0.37693      0.39080</span></a>
+<a class="sourceLine" id="cb8-20" title="20"><span class="co">#&gt; 3                  14726                  14731      0.37742      0.38842</span></a>
+<a class="sourceLine" id="cb8-21" title="21"><span class="co">#&gt; 4                  15103                  15108      0.37910      0.39322</span></a>
+<a class="sourceLine" id="cb8-22" title="22"><span class="co">#&gt; 5                  15463                  15468      0.38307      0.39777</span></a>
+<a class="sourceLine" id="cb8-23" title="23"><span class="co">#&gt; 6                  15831                  15836      0.38334      0.39496</span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="co">#&gt;   threshold_50 min_gcc max_gcc</span></a>
+<a class="sourceLine" id="cb8-25" title="25"><span class="co">#&gt; 1      0.41656 0.36959 0.46330</span></a>
+<a class="sourceLine" id="cb8-26" title="26"><span class="co">#&gt; 2      0.41848 0.36830 0.46187</span></a>
+<a class="sourceLine" id="cb8-27" title="27"><span class="co">#&gt; 3      0.41786 0.36910 0.46467</span></a>
+<a class="sourceLine" id="cb8-28" title="28"><span class="co">#&gt; 4      0.42118 0.37068 0.46836</span></a>
+<a class="sourceLine" id="cb8-29" title="29"><span class="co">#&gt; 5      0.42725 0.37272 0.47838</span></a>
+<a class="sourceLine" id="cb8-30" title="30"><span class="co">#&gt; 6      0.42533 0.37408 0.47070</span></a></code></pre></div>
+<p>Alternatively you can use the phenophases() function which is a wrapper of the transition_dates() function. However, as it potentially writes data to disk it needs additional information such as the roi_id, site name etc. The phenophases() function is the function which generated the final data products in the Richardson et al. (2018) paper. If used internally the output will be formatted in unix time, when written to file the dates will be human readable in YYYY-MM-DD format. Both start and end of season estimates will be provided.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">phenology_dates &lt;-<span class="st"> </span><span class="kw">phenophases</span>(df, <span class="dt">internal =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>With the phenoogy dates calculated we can plot their respective locations on the smoothed time series. In this case the plot will show the 50% amplitude threshold values for both rising and falling parts of the 90th percentile Gcc curve, marked with green and brown vertical lines respectivelly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">as.Date</span>(df<span class="op">$</span>data<span class="op">$</span>date),
-     df<span class="op">$</span>data<span class="op">$</span>smooth_gcc_<span class="dv">90</span>,
-     <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>,
-     <span class="dt">xlab =</span> <span class="st">&quot;date&quot;</span>,
-     <span class="dt">ylab =</span> <span class="st">&quot;Gcc&quot;</span>)
-
-<span class="co"># rising &quot;spring&quot; greenup dates</span>
-<span class="kw">abline</span>(<span class="dt">v =</span> phenology_dates<span class="op">$</span>rising<span class="op">$</span>transition_<span class="dv">50</span>,
-       <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>)
-
-<span class="co"># falling &quot;autumn&quot; senescence dates</span>
-<span class="kw">abline</span>(<span class="dt">v =</span> phenology_dates<span class="op">$</span>falling<span class="op">$</span>transition_<span class="dv">50</span>,
-       <span class="dt">col =</span> <span class="st">&quot;brown&quot;</span>)</code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqAAAAEgCAIAAADkBlbXAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAgAElEQVR4nOzdd0BTV9sA8JMBSSCEvfcUQVHBvSeKuLci1m0drxvFVUXreKu11lmrqC12uFCxoqIFXLXuURcCIgICIitsSHK/P+7bfBSBQs5J7iU+v78g4d48uST3OftwKIpCAAAAANAuXKYDAAAAAAB5kOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCkOABAAAALQQJHgAAANBCfKYD0JwlS5ZcvXpVYy+XuCex0rLSe5S3CsfOLys7IRBkcokVvx78+cC3qy+SNfpAD7ncv6rqqEBQwOHgh6EQKh7FP2rVvRWvkqfC4Z+XlaXw+Zd0dPAjUUr+b3KpV2nLwS0be6CTXD6kqmqnUEgqEkqXehT/qNmMZnrP9Bp77Jzy8hd8fhyf5Nf52fFnOjk6HnM9GnvghPJyhNDP5K4M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//nXQ968eRMREfHXX3+dOnXqhx9+IHVnNDY2vnXrlqenp6en5/bt2ydOnNioBka5XL5p06aNGzfu27fvyy+/xAxG2bARGhpqZWUVGhqalJSEEIqIiHj48GFDzrB+/fqEhITU1NR79+61b98eJxg+n09fioiIiClTptjY2LRu3To6OvrAgQMGBga3bt361zM8fvx45cqVP//8c3JyMmafN0JIKBRKpdLY2NiOHTvGx8fHx8cbGBikpaVdvny5devWT58+RQg9fPhwzJgxyoaHTZs27d6928/Pz8rKauTIkREREfgFdyU6waemphoYGFy/fn3Tpk2TJk368ssv6W/9nTt3lB0cp0+fTk1N3bJly6NHjx48eLBz5865c+f++OOPDg4OpIKh40lPT8/JyVmzZg2Px5s/f/6VK1eKioo6derUqVMnLy+vyZMnZ2dnb9u27Zdffvnll19kMtnly5fNzc39/f27du3arVu3Cxcu4O9rZ2lpmZWVhRB6/vw5/lBlRmjVfvCMSExMXLBgwe7du5VdPnS3dyXCWqmGSB98QUFBVlYWfl+UsgYfFxfn5eXV8E79goKCp0+fxsXFpaSkCASCAiHu+Dgun69M8D/88INAINi9e/e6desadZLz58/Pnz8/KCho+PDhS9ASzJCsrKzou0BUVNRPP/20ZMmSjRs3Tp482dbW9smTJ2Kx2MXFRaFQUBSlvONERkYOGTLE3d392rVrRUVF+H0oNBMTk8jIyJEjRyKEgoKCnj171rt378jISFdXV4RQcXHx6dOnR4wYoa+vT8cglUonT56M/l62YeDAgUKhMDY2lr5ZT0VTcYKhGzYqKipOnz6dkJDQtWvXgICAdevWhYSEUBR16dKlCxcudOvWzdjY+OjRo2vXrhUKhampqdevXw8PD1+6dKlMJjty5Miff/5pZmaGP0pUh8/Pzc2lKOq33367ePEiQmjMmDG7du3666+/Vq9e/fnnn9+7dy83N/fw4cNz5swxNDSkj4qJiREKhd26dZNKpZ9//vnKlSuHDRu2bt26m7ybmPFweTxDQ8OjR4/6+/tbWlrGxcUpnzp69Gjfvn2PHz8+efJkiUTyzTffODk5rVq1qqqq6v79+1wul8Ph2NjYYAZQA11jfvXqlYeHh6Oj44MHD06fPn3ixAmpVJqdnX316tWysrJu3botX758/fr1mzZt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" /><!-- --></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">plot</span>(<span class="kw">as.Date</span>(df<span class="op">$</span>data<span class="op">$</span>date),</a>
+<a class="sourceLine" id="cb10-2" title="2">     df<span class="op">$</span>data<span class="op">$</span>smooth_gcc_<span class="dv">90</span>,</a>
+<a class="sourceLine" id="cb10-3" title="3">     <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>,</a>
+<a class="sourceLine" id="cb10-4" title="4">     <span class="dt">xlab =</span> <span class="st">&quot;date&quot;</span>,</a>
+<a class="sourceLine" id="cb10-5" title="5">     <span class="dt">ylab =</span> <span class="st">&quot;Gcc&quot;</span>)</a>
+<a class="sourceLine" id="cb10-6" title="6"></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="co"># rising &quot;spring&quot; greenup dates</span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="kw">abline</span>(<span class="dt">v =</span> phenology_dates<span class="op">$</span>rising<span class="op">$</span>transition_<span class="dv">50</span>,</a>
+<a class="sourceLine" id="cb10-9" title="9">       <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>)</a>
+<a class="sourceLine" id="cb10-10" title="10"></a>
+<a class="sourceLine" id="cb10-11" title="11"><span class="co"># falling &quot;autumn&quot; senescence dates</span></a>
+<a class="sourceLine" id="cb10-12" title="12"><span class="kw">abline</span>(<span class="dt">v =</span> phenology_dates<span class="op">$</span>falling<span class="op">$</span>transition_<span class="dv">50</span>,</a>
+<a class="sourceLine" id="cb10-13" title="13">       <span class="dt">col =</span> <span class="st">&quot;brown&quot;</span>)</a></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqAAAAEgCAYAAABrZMGAAAAEDWlDQ1BJQ0MgUHJvZmlsZQAAOI2NVV1oHFUUPrtzZyMkzlNsNIV0qD8NJQ2TVjShtLp/3d02bpZJNtoi6GT27s6Yyc44M7v9oU9FUHwx6psUxL+3gCAo9Q/bPrQvlQol2tQgKD60+INQ6Ium65k7M5lpurHeZe58853vnnvuuWfvBei5qliWkRQBFpquLRcy4nOHj4g9K5CEh6AXBqFXUR0rXalMAjZPC3e1W99Dwntf2dXd/p+tt0YdFSBxH2Kz5qgLiI8B8KdVy3YBevqRHz/qWh72Yui3MUDEL3q44WPXw3M+fo1pZuQs4tOIBVVTaoiXEI/MxfhGDPsxsNZfoE1q66ro5aJim3XdoLFw72H+n23BaIXzbcOnz5mfPoTvYVz7KzUl5+FRxEuqkp9G/Ajia219thzg25abkRE/BpDc3pqvphHvRFys2weqvp+krbWKIX7nhDbzLOItiM8358pTwdirqpPFnMF2xLc1WvLyOwTAibpbmvHHcvttU57y5+XqNZrLe3lE/Pq8eUj2fXKfOe3pfOjzhJYtB/yll5SDFcSDiH+hRkH25+L+sdxKEAMZahrlSX8ukqMOWy/jXW2m6M9LDBc31B9LFuv6gVKg/0Szi3KAr1kGq1GMjU/aLbnq6/lRxc4XfJ98hTargX++DbMJBSiYMIe9Ck1YAxFkKEAG3xbYaKmDDgYyFK0UGYpfoWYXG+fAPPI6tJnNwb7ClP7IyF+D+bjOtCpkhz6CFrIa/I6sFtNl8auFXGMTP34sNwI/JhkgEtmDz14ySfaRcTIBInmKPE32kxyyE2Tv+thKbEVePDfW/byMM1Kmm0XdObS7oGD/MypMXFPXrCwOtoYjyyn7BV29/MZfsVzpLDdRtuIZnbpXzvlf+ev8MvYr/Gqk4H/kV/G3csdazLuyTMPsbFhzd1UabQbjFvDRmcWJxR3zcfHkVw9GfpbJmeev9F08WW8uDkaslwX6avlWGU6NRKz0g/SHtCy9J30o/ca9zX3Kfc19zn3BXQKRO8ud477hLnAfc1/G9mrzGlrfexZ5GLdn6ZZrrEohI2wVHhZywjbhUWEy8icMCGNCUdiBlq3r+xafL549HQ5jH+an+1y+LlYBifuxAvRN/lVVVOlwlCkdVm9NOL5BE4wkQ2SMlDZU97hX86EilU/lUmkQUztTE6mx1EEPh7OmdqBtAvv8HdWpbrJS6tJj3n0CWdM6busNzRV3S9KTYhqvNiqWmuroiKgYhshMjmhTh9ptWhsF7970j/SbMrsPE1suR5z7DMC+P/Hs+y7ijrQAlhyAgccjbhjPygfeBTjzhNqy28EdkUh8C+DU9+z2v/oyeH791OncxHOs5y2AtTc7nb/f73TWPkD/qwBnjX8BoJ98VVBg/m8AAEAASURBVHgB7Z0HnJxF+ccn13LpIaEZWkIvYhICiBD+gIBIR0CQJgFEQEDpIIhIlypSROldpCOIdOlSA1KlNykhgSSQene5/b/fOeZ4b7N3t3c78+777v4mn8vuvvvuzPN+33lnnnnmmWf65KJklERABERABERABERABEQgIQI1CZWjYkRABERABERABERABETAEpACqoogAiIgAiIgAiIgAiKQKAEpoIniVmEiIAIiIAIiIAIiIAJSQFUHREAEREAEREAEREAEEiUgBTRR3CpMBERABERABERABERACqjqgAiIgAiIgAiIgAiIQKIEpIAmiluFiYAIiIAIiIAIiIAISAFVHRABERABERABERABEUiUgBTQRHGrMBEQAREQAREQAREQASmgqgMiIAIiIAIiIAIiIAKJEpACmihuFSYCIiACIiACIiACIiAFVHVABERABERABERABEQgUQJSQBPFrcJEQAREQAREQAREQASkgKoOiIAIiIAIiIAIiIAIJEpACmiiuFWYCIiACIiACIiACIiAFFDVAREQAREQAREQAREQgUQJSAFNFLcKEwEREAEREAEREAERkAKqOiACIiACIiACIiACIpAoASmgieJWYSIgAiIgAiIgAiIgAlJAVQdEQAREQAREQAREQAQSJSAFNFHcKkwEREAEREAEREAEREAKqOqACIiACIiACIiACIhAogSkgCaKW4WJgAiIgAiIgAiIgAhIAVUdEAEREAEREAEREAERSJSAFNBEcaswERABERABERABERABKaCqAyIgAiIgAiIgAiIgAokSkAKaKG4VJgIiIAIiIAIiIAIiIAVUdUAEREAEREAEREAERCBRAlJAE8WtwkRABERABERABERABKSAqg6IgAiIgAiIgAiIgAgkSkAKaKK4VZgIiIAIiIAIiIAIiIAUUNUBERABERABERABERCBRAlIAU0UtwoTAREQAREQAREQARGQAqo6IAIiIAIiIAIiIAIikCgBKaCJ4lZhIiACIiACIiACIiACUkBVB0RABERABERABERABBIlIAU0UdwqTAREQAREQAREQAREQAqo6oAIiIAIiIAIiIAIiECiBKSAJopbhYmACIiACIiACIiACEgBVR0QAREQAREQAREQARFIlIAU0ERxqzAREAEREAEREAEREAEpoKoDIiACIiACIiACIiACiRKQApoobhUmAiIgAiIgAiIgAiIgBVR1QAREQAREQAREQAREIFECUkATxa3CREAEREAEREAEREAEpICqDoiACIiACIiACIiACCRKQApoorhVmAiIgAiIgAiIgAiIgBRQ1QEREAEREAEREAEREIFECUgBTRS3ChMBERABERABERABEZACqjogAiIgAiIgAiIgAiKQKAEpoIniVmEiIAIiIAIiIAIiIAJSQFUHREAEREAEREAEREAEEiUgBTRR3CpMBERABERABERABERACqjqgAiIgAiIgAiIgAiIQKIEpIAmiluFiYAIiIAIiIAIiIAISAFVHRABERABERABERABEUiUgBTQRHGrMBEQAREQAREQAREQASmgqgMiIAIiIAIiIAIiIAKJEpACmihuFSYCIiACIiACIiACIiAFVHVABERABERABERABEQgUQJSQBPFrcJEQAREQAREQAREQASkgKoOiIAIiIAIiIAIiIAIJEpACmiiuFWYCIiACIiACIiACIiAFFDVAREQAREQAREQAREQgUQJSAFNFLcKEwEREAEREAEREAERkAKqOiACIiACIiACIiACIpAoASmgieJWYSIgAiIgAiIgAiIgAlJAVQdEQAREQAREQAREQAQSJSAFNFHcKkwEREAEREAEREAEREAKqOqACIiACIiACIiACIhAogSkgCaKW4WJgAiIgAiIgAiIgAhIAVUdEAEREAEREAEREAERSJSAFNBEcaswERABERABERABERABKaCqAyIgAiIgAiIgAiIgAokSkAKaKG4VJgIiIAIiIAIiIAIiIAVUdUAEREAEREAEREAERCBRAlJAE8WtwkRABERABERABERABOqEoHcEzj33XHPhhReaIUOG9C4Dz79qXmamadpgmhlwyWIl57zMVzPM7Npa83H/fiXn1VUGM375oWm8biFTN6Wxq9OK+m7FL78yU+obzJR+fYs6v6cn5UzOzDj0Q9P/T4uZ2tm1Pf35fOeP+mqmaampMR8OCMuYgmdv8rktv989w+eToycHBjY1mWVmzjX/WWBQT37W43ObF5xj5u482Qw8d4ke/zb+g7p5rWaFGTPNR419zbS+DfGvgrz/8vD3zcDzFjM1c0poVnM5M2baDPNmVC9mNpSQT5FX2LTCTNM8froZcOmIIn9R+LTGlnlm5S9nmonDBhc+wePRL3/9nhl86kgvOS4wt8ksNnuueXlo2DrdMqDFzN73YzPorCVLlnvl6V+ZSQ0N5vNAbZ0TcM46U03rok2m/82LuEO9fu0T1evVp35pnhky0JiobwmVZu71kWl4dKipf2OAlyJGT/3KvNW/0czsW+8lvyQzaWxsNHfccYcZNChs3S7lmqJ6EdUMpXYCb731lnnsscfaP3f25sgjjzQnnXSSWXXVVTs7JdHj5y1znHlqwYfMNU89XHK5z+64m6kbPMiMufhPJefVVQa7fnc9s8MHe5utPtm1q9OK+u6Z7Xc2/ZceZVY5/eSizu/pSc19mswea25sfv3q2WaVr8b19Ofznf/sTrub2kgxGnv5RfN95/vA3uM2M7k+OXPJs/8sKev3LrnCTP7nPWaNm/9aUj7d/fi2b11lblry0pLr8vQXXzJvHH+KGbjSCmalk37XXbElf099PvbVc80KX43udV6tLS3muej5W3SbLc0Su+3c63yK/eGZKxxpXhj6ZMmsJ91zv/ngokvNuL9eaWoi5ShUajEtZsJ3NyxZXiffG6eebqY/+3zwOv3ckMfMH1Y8xovcz2y3kxmw4vJm5ZOPd5cR5PWgMTuaaQ1TzBVPP1By/i2RUeP5CXubb593luk3orTBTlfC8AyOnfo9c+gbv+/qtKK/g/XwDTcwS//i50X/Ji0nbrDBBubJJ580o0f3vj0KfS3hh9ihr8Bz/p9++ql5+OHulbgvvvjCTJ482ay11lqeJehddteZBe0PfcjzXJ8+pqFv30SubcmlljRrLVU6w2cimQdGIz0f11/oDsw1c+3hlVdZyawV/Ss1PV9bY+oji20oeePy1ZrayH6bK7msuXfdbSZHGYeW+VnzLyt+qeV82DzPvBHlNHjw4OAyO94rr7KKWaOE+jGvudk8F2U2YsRiicg81AyNSutTclkvvfG2+SDKac011zR1keUlVEIBJZVaN5x8nw0bZqZ7zM/lm/86wz45fuR+Jsp88KDwdbrR9I1qRo0X1nOmTjPPR3KPGT3GLLDM0vl4vH4eOmwBLzIjFKwXWWRhb/l5vdBuMlt++eW7OaP8X0sBzbsH48ePN/x1l2666Saz0EILdXeavhcBERABERABERABEcgjoEVIeUD0UQREQAREQAREoI3Ac889Z9555x3hEAHvBKSAekeqDEVABERABESgAghEK0RWX311c8opp1TAxegS0kZACmja7ojkEQEREAEREIE0EOjTJkSfyMdeSQR8E5AC6puo8hMBERABERCBCiDgguRMn85SLSUR8EtACqhfnspNBERABERABCqDQDQFTxQJIr4oiYBvAlJAfRNVfiIgAiIgAiJQEQRyZubMmWbq1KkVcTW6iHQRkAKarvshaURABERABEQgNQTGjh1rpkyZkhp5JEjlEJACWjn3UlciAiIgAiIgAt4IsE0iWzlOmzbNW57KSAQcASmgjoReRUAEREAEREAEviEQaaALLrigaW1tNXPntu0G982XeicCpRGQAloaP/1aBERABERABCqSAFv4Dhw40CywwAKahq/IO1zei5ICWl7+Kl0EREAEREAE0kkgsoCigC688MLm888/T6eMkiqzBKSAZvbWSXAREAER8ENgr732MvX19Vrt7Adnp7lsvPHG5uabb+70+zR+0b9/f/Otb33LfPzxx2kUbz6ZpkyeYrbccsv5jutA+ghIAU3fPZFEIiACEYGddtrJbLfddmIRmkBk5brssstMS0uL+d///he6tKrO//777zfbb799hhjkzIABA8xiiy1mPvroo0zI/cXnX5g777zTvP7665mQt5qFlAJazXdf1y4CKSbw9NNPm3fffTfFElaKaDlr/dx9993Ns88+WykXlcrrwJcySykam9gpeCygWRmczJs3z4wYMcK8+OKLWUJdlbJKAa3K266LFoH0E/jkk08yY3VJP82uJUTBGD16tJk4cWLXJ+rbkgi4PdWztLVlY2OjtYDyPGYhNTU1mfXWW89gbVZKNwEpoOm+P5JOBKqTQGR6aWhoMHQmikEYvgoMGTLEjBkzxrz88svhC6viEr766ivzve99z7z00kvZoBA9h/369bM+oFlRQJubm81yyy2XqdmT2bNnm08//TQbdcKjlFJAPcJUViIgAv4IDBs2zE6lZaXj83flyefE1PAKK6xg3njjjeQLr5YSI2Wurq7OrLrqqubVV1/NyFW3hWHCQp4VBamlpdkss8wy5r333ssIY2N9Vg888MDMyOtL0IpRQGfNmmWee+458+abbxp8QJREQASyTWChhRYyw4cPN5MnT87MhbQ0tRimWf/zn/9kRmYEZaEJfnNsuYgFSSkMASzNI0eONO+//36YAjznig+om4LPyiKk5mgx3ahRo8yHH37omUa47L788kszePDgcAWkNOfMKaBnnXWWOfbYYzvgPPXUUw3WktVXX90sv/zydiR/7733djhHH0SgqglEPcmf//znTA3OUIoWWWSRTAXAnjq9bcvCDTfcMFPVDcWIxGrnrITbyRTgr4VlOnuJJZbIzIKeKA59+xQ8A8EsGHeQkYHr0KFDM2O1nTFjhhTQLDzQrGzD0unS5Zdfbo4++mgzfvx4c+mll5o//OEPtvJts8025oUXXnCn6VUEqpxAzuy33352CjArIOhA2AYQq1xW0ocffGDGjRtng3bTqWQlYeUiMdWaFUtXVtjG5XQhjbKyohzZkRmrPoOTLFhuW5pbrMy4lPz3v/+N40/texalDRo0KLXyhRIscxbQfBAXX3yxWWutteyKtz333NMcdNBB5qmnnjIrrriiOeecc/JP12cRqEoCOebSvk65+Ad3MIWvWItQQLPiewbCj6Jg3WPHjjWbbbaZ+dnPfpZCqoVFQskgoYBmxecWYwSKUZYMDSgZWYqpaSITqBucLL300uadd94pXIFSdBQLKMHz8bXNymIvBqtuFiJFKIOLknkFlBWyu+6663yg9t5778z5Yc13Eb04MGnSJNsoZynMRy8us2w/+eLzqZZvVkbWDlRra6tdfdu3b1/z1ltvucOpfnXWoiwpoJ9+/In1Pzv99NPNM888k2q+ceGc9SVLFtC//OUv9hIIop+VxPMXn4JH8dhhhx1S7fbAQJDEyvIstB2trfNs7NKVVlrJvPbaa5moGviAukFgJgT2JGQmFVBCFjhH+a233rrglBHT9FhPqi25MCoPPvhgtV16Itf79tcWgPPOOy+R8nwVksu1Wn/KH//4x+bhhx/2lW3QfNiDeskll8zUatZPJn1qF5msvPLK5rPPPjNZmYZHMSItvvjimbGA0safcMIJ5m9/+1vQeugzcyxzKHT84VN53333mRtvvNFaRdM40GLixCmgWZnS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AiKQGIHMTcHvvPPOBiV00qRJZpdddrE+nsOHD7erQPEBfe+99wz7wd911112mj4xkipIBERABERABERABESgKAKZU0DHjBljXnzxRbPPPvvYPd9bo9Af+YlV8Pfee69Zb7318r/SZxEQAREQAREQAREQgTITyJwCCq9ll13WrnBvamoyH3zwgbV6Njc3mxEjRtgYj1hElURABERABERABERABNJJIJMKqEPZ0NBglVEUUiUREAEREAEREAEREIFsEMhkIPpsoO2ZlOzQw6Kp3u6E1LPSqvdscU7m3r/yyitmpZVW6vUOPclImf1SxDn8PfS1E1J4SbNdgjhn+/71RnopoL2hpt+IgAiIgAiIgAiIgAj0mkDmwjD1+kr1QxEQAREQAREQAREQgVQQkAKaitsgIURABERABERABESgeghIAa2ee60rFQEREAEREAEREIFUEJACmorbICFEQAREQAREQAREoHoISAGtnnutKxUBERABERABERCBVBCQApqK2yAhREAEREAEREAERKB6CEgBrZ57rSsVAREQAREQAREQgVQQkAKaitsgIURABERABERABESgeghIAa2ee60rFQEREAEREAEREIFUEJACmorbICFEQAREQAREQAREoHoISAENcK9bW1u7zTWXy5V8TjHldFtIhk8o5vqL4cwexE1NTZ2SKCaPTn9cAV/44gxjWHeWiimns99WwvHurr/Yetgd50pg1dtr6I4x+friXGw+vb2WNP8uSc7FlJVmVtUsmxRQT3f/1VdfNZtttpkZPHiw6d+/v1l99dXNfffd1yH3GTNmmCOPPNIst9xyZtiwYWbbbbc1n3/+eY/PId8xY8aYvn37moUWWsj86le/MrNmzeqQT6V+8MXZ8aHx2mqrrczPf/5zd6j99fnnnze77LKLWWCBBczSSy9tTjzxxPbvKv2Nb87vvvuuGTFihLn77rvnQ/fXv/7VfPvb37b1medixx13NP/73//mO68SDxTDuSf1sCvOcX4HHnigWWSRReKHKvp9MXXMF+f777/frLHGGqZfv35mnXXWMeedd17RSm3Wb0JSnGm3TzjhBNum1NfXmxVWWMFcd911WcdXffJHozSlEglESmRuscUWy6222mq5a6+9NnfPPffkNt9881z0YOSee+659tyjRj+3zDLL5CIFMvfwww/nRo8enYsUyVz0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pgiIgAiIgAiIgAhUMQEpoFV883XpIiACIiACIiACIlAOAlJAy0FdZYqACIiACIiACIhAFROQAlrFN1+XLgIiIAIiIAIiIALlICAFtBzUVaYIiIAIiIAIiIAIVDEBKaBVfPN16SIgAiIgAiIgAiJQDgJSQMtBXWWKgAiIgAiIgAiIQBUTkAJaxTdfly4CIiACIiACIiAC5SAgBbQc1FWmCIiACIiACIiACFQxASmgVXzzdekiIALhCdxyyy2mT58+5vPPPy+6sNbWVnPhhReaOXPmFP0bnSgCIiACWSIgBTRLd0uyioAIVAWBG264wfziF78w8+bNq4rr1UWKgAhUHwEpoNV3z3XFIiACKSeABVRJBERABCqZgBTQSr67ujYREIHECdx5551mk002McOHDzdbb721mTRp0nwyMC0/fvx4M2zYMLPooouaTTfd1Lz22mv2vL///e/mN7/5jX3POVdffbV9P2PGDGsVHTlypFlwwQXNNttsY95///358tYBERABEcgCASmgWbhLklEERCATBF544QWz/fbbm8UWW8xceeWV9vWggw7qIPtNN91ktttuOzN69Ghz6aWXmv3228/wO46RVl55ZavA8n7//fc348aNM7lczmy44Ybm5ptvNrvvvru5+OKLzdSpU80aa6xhvvjiC05VEgEREIFMEegTNWy5TEksYUVABEQgpQQ22mgj09zcbB5++OF2Cbfddltz6623milTplir6CGHHGLefvttc/vtt7efc+qpp5qjjz7aKpVDhw411113ndlll10MVs8BAwaY66+/3uy0007mrrvustZSfjh79myz0EILmV/+8pfmlFNOac9Lb0RABEQgCwTqsiCkZBQBERCBLBDAknnMMcd0EHXHHXe0Cqg7ePbZZ7u35uOPPzavvPKKefXVV+2xWbNmGRTQ/PToo4+aIUOGmEGDBpknnnii/WusqPHP7V/ojQiIgAiknIAU0JTfIIknAiKQDQJMhRNqaZFFFukg8IgRIzp85pzDDz/c3HbbbdbiyfeLL764PaezCan33nvPTJ8+3ay77rod8uIDPqFKIiACIpA1AvIBzdodk7wiIAKpJLDAAgtYC2W+T+ZXX33VQV6m1lmodNppp5k333zTfPTRR9bXk5M6U0BZ0LTUUkvZsEyskI//vfPOOx3y1wcREAERyAIBKaBZuEuSUQREIPUECDbPlPiDDz7YQdbHH3+8/XNTU5O5//77zQEHHGD23ntvs+yyy9rvJk6caF9d3E/yIrlwTKussopd8f7UU0/ZoPZ8j7K68847mzPPPNOeq/9EQAREIEsEpIBm6W5JVhEQgVQTOOqoowxhlC644AKD5fOOO+4w5513XrvMDQ0NZq211rIWUEIoffnll3ZF+/nnn2/PwQeUhK8n6ZprrjFYOPfZZx+7gIlV8eSP7yhl3XjjjYaFT0oiIAIikDUCUkCzdsckrwiIQGoJbL755uacc86xq9IHDx5s9txzz/aYnk7oE044wb4dNWqUVSqvuuoqu2q+trbWYOEkEf9zzJgxNu7nWWedZRcmYTklEVsUn9EHHnjAKrpjx461x/WfCIiACGSJgMIwZeluSVYREIFMEGB6/IMPPjBLLrmknTIvJPSnn35q+vfvb1BUO0vTpk0zAwcONHV136wX5Rh7xBPAXkkEREAEskpACmhW75zkFgEREAEREAEREIGMEtAUfEZvnMQWAREQAREQAREQgawSkAKa1TsnuUVABERABERABEQgowSkgGb0xklsERABERABERABEcgqASmgWb1zklsEREAEREAEREAEMkpACmhGb5zEFgEREAEREAEREIGsEpACmtU7J7lFQAREQAREQAREIKMEpIBm9MZJbBEQAREQAREQARHIKgEpoFm9c5JbBERABERABERABDJKQApoRm+cxBYBERABERABERCBrBKQAprVOye5RUAEREAEREAERCCjBKSAZvTGSWwREAEREAEREAERyCoBKaBZvXOSWwREQAREQAREQAQySkAKaEZvnMQWAREQAREQAREQgawSkAKa1TsnuUVABERABERABEQgowSkgGb0xklsERABERABERABEcgqASmgWb1zklsEREAEREAEREAEMkpACmhGb5zEFgEREAEREAEREIGsEpACmtU7J7lFQAREQAREQAREIKMEpIBm9MZJbBEQAREQAREQARHIKgEpoFm9c5JbBERABERABERABDJKQApoRm+cxBYBERABERABERCBrBKQAprVOye5RUAEREAEREAERCCjBP4f5C/mNKFKuD8AAAAASUVORK5CYII=" /><!-- --></p>
 </div>
 </div>
 <div id="references" class="section level2">

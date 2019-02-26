@@ -18,6 +18,7 @@
 #' @param phenophase logical, calculate transition dates (default = \code{FALSE})
 #' @param out_dir output directory where to store downloaded data 
 #' (default = tempdir())
+#' @param internal allow for the data element to be returned to the workspace
 #' @return Downloaded files in out_dir of requested time series products, as well
 #' as derived phenophase estimates based upon these time series.
 #' @keywords PhenoCam, Daymet, climate data, modelling, post-processing
@@ -48,7 +49,8 @@ download_phenocam = function(site = "harvard$",
                              trim_daymet = TRUE,
                              trim = NULL,
                              phenophase = FALSE,
-                             out_dir = tempdir()) {
+                             out_dir = tempdir(),
+                             internal = FALSE){
 
   # sanity check on frequency values
   if (!any(frequency %in% c("1","3","roistats"))){
@@ -56,7 +58,7 @@ download_phenocam = function(site = "harvard$",
   }
   
   # get roi site listing
-  site_list = list_rois()
+  site_list <- list_rois()
   
   # check for server timeout
   if (inherits(site_list,"try-error")){
@@ -95,43 +97,34 @@ download_phenocam = function(site = "harvard$",
   }
 
   # subset the site list
-  site_list = site_list[loc,]
+  site_list <- site_list[loc,]
 
   # cycle through the selection
   for (i in 1:dim(site_list)[1]){
 
-    # create server string, the location of the site data
-    if (frequency == "roistats"){
-      data_location=sprintf("https://phenocam.sr.unh.edu/data/archive/%s/ROI",
-                            site_list$site[i])
-      filename = sprintf("%s_%s_%04d_roistats.csv",
-                         site_list$site[i],
-                         site_list$veg_type[i],
-                         site_list$roi_id_number[i])
-    } else {
-      data_location=sprintf("https://phenocam.sr.unh.edu/data/archive/%s/ROI",
-                            site_list$site[i])
-      filename = sprintf("%s_%s_%04d_%sday.csv",
-                         site_list$site[i],
-                         site_list$veg_type[i],
-                         site_list$roi_id_number[i],
-                         frequency)
-    }
+    # build url
+    url_info <- server_archive(frequency = frequency,
+                               site = site_list$site[i],
+                               veg_type = site_list$veg_type[i],
+                               roi_id_number = site_list$roi_id_number[i])
+    filename <- url_info$filename
+    data_location <- url_info$data_location
 
     # formulate output file location
     output_filename = file.path(out_dir, filename)
 
     # download data + feedback
-    cat(sprintf("Downloading: %s\n", filename))
+    message(sprintf("Downloading: %s", filename))
     
     # try to download the data
-    error = try(httr::GET(url = sprintf("%s/%s",data_location, filename),
-                          httr::timeout(15),
-                          httr::write_disk(path = output_filename, overwrite = TRUE)))
+    error = try(httr::GET(
+      url = sprintf("%s/%s",data_location, filename),
+      httr::timeout(15),
+      httr::write_disk(path = output_filename, overwrite = TRUE)))
     
     # trap errors on download, return a general error statement
     # with the most common causes
-    if (httr::http_error(error) | inherits(error, "try-error")){
+    if (inherits(error, "try-error")){
       try(file.remove(output_filename))
       warning(sprintf("failed to download: %s", filename))
       next
@@ -159,22 +152,22 @@ download_phenocam = function(site = "harvard$",
       if (outlier_detection){
         
         # feedback
-        cat("Flagging outliers! \n")
+        message("-- Flagging outliers!")
 
         # detect outliers
         df = try(suppressWarnings(detect_outliers(df)),
                                       silent = TRUE)
 
         # trap errors
-        if(inherits(df,"try-error")){
-          cat("--failed \n")
+        if(inherits(df, "try-error")){
+          warning("outlier detection failed...")
         }
       }
       
       # Smooth data
       if (smooth){
         # feedback
-        cat("Smoothing time series! \n")
+        message("-- Smoothing time series!")
         
         # smooth time series
         df = try(suppressWarnings(smooth_ts(df)),
@@ -190,7 +183,7 @@ download_phenocam = function(site = "harvard$",
       if (phenophase){
         
         # feedback
-        cat("Estimating transition dates! \n")
+        message("-- Estimating transition dates!")
 
         # smooth time series
         phenophase_check = try(suppressWarnings(phenophases(data = df,
@@ -208,7 +201,7 @@ download_phenocam = function(site = "harvard$",
       if (daymet){
         
         # feedback
-        cat("Merging Daymet Data! \n")
+        message("-- Merging Daymet Data!")
 
         # merge daymet data into the time series file
         df = try(merge_daymet(df,
@@ -225,7 +218,7 @@ download_phenocam = function(site = "harvard$",
       if (contract & df$frequency == "3day"){
         
         # feedback
-        cat("Contracting Data! \n")
+        message("-- Contracting Data!")
         
         # merge daymet data into the time series file
         df = try(contract_phenocam(df),
@@ -237,8 +230,12 @@ download_phenocam = function(site = "harvard$",
         }
       }
       
-      # finally output all the data to file
-      write_phenocam(df, out_dir = out_dir)
+      # finally output all the data to file or workspace
+      if(!internal){
+        write_phenocam(df, out_dir = out_dir)
+      }else {
+        return(df)    
+      }
     }
   }
 }

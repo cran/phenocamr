@@ -4,19 +4,32 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+# check if server is reachable
+# returns bolean TRUE if so
+phenocam_running <- function(url = "http://phenocam.sr.unh.edu"){
+  ct <- try(httr::GET(url))
+  if(inherits(ct,"try-error")){return(FALSE)}
+  if(ct$status_code > 400){
+    FALSE  
+  } else {
+    TRUE
+  }
+}
+
 # load the library
 library(phenocamr)
 
+check <- phenocam_running()
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
 sites <- list_sites()
-print(head(sites))
+head(sites)
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
 rois <- list_rois()
-print(head(rois))
+head(rois)
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
   download_phenocam(site = "harvard$",
                     veg_type = "DB",
                     roi_id = "1000",
@@ -25,28 +38,27 @@ print(head(rois))
                     smooth = FALSE,
                     out_dir = tempdir())
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
 df <- read_phenocam(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
-
 print(str(df))
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
 df <- expand_phenocam(df)
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
   df <- detect_outliers(df)
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
   df <- smooth_ts(df)
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
 start_of_season <- transition_dates(df)
 print(head(start_of_season))
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = check--------------------------------------------------------
 phenology_dates <- phenophases(df, internal = TRUE)
 
-## ----fig.width = 7, fig.height = 3---------------------------------------
+## ----fig.width = 7, fig.height = 3, eval = check-------------------------
 plot(as.Date(df$data$date),
      df$data$smooth_gcc_90,
      type = "l",
