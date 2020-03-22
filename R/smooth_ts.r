@@ -1,6 +1,6 @@
-#' Smooths a PhenoCam time series
+#' Smooth a PhenoCam time series
 #' 
-#' Smooths time series iteratively using a bayesian information criterion (BIC) 
+#' Smooths time series iteratively using a Akaike information criterion (AIC) 
 #' to find an optimal smoothing parameter and curve.
 #' 
 #' @param data a PhenoCam data file or data structure
@@ -12,11 +12,10 @@
 #' @return An PhenoCam data structure or file with optimally smoothed time series
 #' objects added to the original file. Smoothing is required for `phenophase()`
 #' and `transition_dates()` functions.
-#' @keywords time series, smoothing, phenocam
 #' @export
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #' # with defaults, outputting a data frame
 #' # with smoothed values, overwriting the original
 #'
@@ -307,6 +306,7 @@ smooth_ts = function(data,
   } else {
     # if provided a data frame
     # return the original data frame, with flagged outliers
+    class(data) = "phenocamr"
     return(data)
   }
 }

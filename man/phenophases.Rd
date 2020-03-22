@@ -2,10 +2,9 @@
 % Please edit documentation in R/phenophases.r
 \name{phenophases}
 \alias{phenophases}
-\title{Calculates phenophases, for rising and falling parts of a time series}
+\title{Calculates phenophases}
 \usage{
-phenophases(data, mat = NULL, internal = TRUE, out_dir = tempdir(),
-  ...)
+phenophases(data, mat, internal = TRUE, out_dir = tempdir(), ...)
 }
 \arguments{
 \item{data}{a PhenoCam data file (or data frame)}
@@ -34,7 +33,7 @@ rising and falling parts of a PhenoCam time series.
 }
 \examples{
 
-\donttest{
+\dontrun{
 # downloads a time series
 download_phenocam(site = "harvard$",
                   veg_type = "DB",
@@ -49,9 +48,3 @@ my_dates <- phenophases(df, internal = TRUE)
 print(my_dates)
 }
 }
-\keyword{PhenoCam,}
-\keyword{dates,}
-\keyword{phenology,}
-\keyword{series}
-\keyword{time}
-\keyword{transition}

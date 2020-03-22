@@ -11,11 +11,10 @@
 #' @param plot plot visual output of the optimization routine
 #' @return Returns an optimal span to smooth a provided vector using 
 #' the `loess()` smoother.
-#' @keywords smoother, span, loess, time series
 #' @export
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #' # Internal function only, should not be used stand-alone.
 #' l <- sin(seq(1,10,0.01))
 #' l <- l + runif(length(l))

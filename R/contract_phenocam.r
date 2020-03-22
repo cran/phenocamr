@@ -14,11 +14,10 @@
 #' @return A contracted PhenoCam 3-day time series to its original 3-day time
 #' step (if provided at a 1-day interval), also removes padding introduced
 #' by processing for 1-day data.
-#' @keywords time series, phenocam, post-processing
 #' @export
 #' @examples
 #' 
-#' \donttest{
+#' \dontrun{
 #' # download demo data
 #' download_phenocam(site = "harvard$",
 #'                   veg_type = "DB",
@@ -76,6 +75,7 @@ contract_phenocam = function(data,
   } else {
     # if provided a data frame
     # return the original data frame, with flagged outliers
+    class(data) = "phenocamr"
     return(data)
   }
 }

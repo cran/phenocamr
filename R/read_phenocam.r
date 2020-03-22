@@ -6,11 +6,10 @@
 #' @param filename a PhenoCam data file
 #' @return A nested data structure including site meta-data, the full
 #' header and the data as a `data.frame()`.
-#' @keywords time series, smoothing, phenocam
 #' @export
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #' # download demo data (do not smooth)
 #' download_phenocam(site = "harvard$",
 #'                   veg_type = "DB",

@@ -13,11 +13,10 @@
 #' @param out_dir output directory where to store data
 #' @return Inserts a GRVI data column into the provided PhenoCam
 #' data structure or file.
-#' @keywords time series, colour index, phenocam
 #' @export
 #' @examples
 #' 
-#' \donttest{
+#' \dontrun{
 #' # with defaults, outputting a data frame
 #' # with smoothed values, overwriting the original
 #' 
@@ -82,6 +81,7 @@ grvi = function(data,
   } else {
     # if provided a data frame
     # return the original data frame, with flagged outliers
+    class(data) <- "phenocamr"
     return(data)
   }
 }

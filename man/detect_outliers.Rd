@@ -4,9 +4,16 @@
 \alias{detect_outliers}
 \title{Detect outliers in PhenoCam time series}
 \usage{
-detect_outliers(data, iterations = 20, sigma = 2, grvi = FALSE,
-  snowflag = FALSE, plot = FALSE, internal = TRUE,
-  out_dir = tempdir())
+detect_outliers(
+  data,
+  iterations = 20,
+  sigma = 2,
+  grvi = FALSE,
+  snowflag = FALSE,
+  plot = FALSE,
+  internal = TRUE,
+  out_dir = tempdir()
+)
 }
 \arguments{
 \item{data}{PhenoCam data structure or filename}
@@ -18,7 +25,7 @@ detect_outliers(data, iterations = 20, sigma = 2, grvi = FALSE,
 \item{grvi}{reverse the direction of the screening intervals
 to accomodate for GRVI outliers}
 
-\item{snowflag}{integrate snow flags?}
+\item{snowflag}{use manual snow flag labels as outliers}
 
 \item{plot}{visualize the process, mostly for debugging
 (\code{TRUE} / \code{FALSE} = default)}
@@ -35,7 +42,7 @@ and either overwrites the original file or outputs a data structure.
 }
 \examples{
 
-\donttest{
+\dontrun{
 # download demo data (do not detect outliers)
 download_phenocam(site = "harvard$",
                   veg_type = "DB",
@@ -48,6 +55,3 @@ detect_outliers(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
 
 }
 }
-\keyword{PhenoCam,}
-\keyword{outliers,}
-\keyword{post-processing}

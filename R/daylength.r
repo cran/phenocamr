@@ -6,11 +6,10 @@
 #' @param latitude a given latitude
 #' @return nested list with daylength (daylength) and
 #' solar elevation (solar_elev) elements
-#' @keywords solar, ephemerids
 #' @export
 #' @examples
 #' 
-#' \donttest{
+#' \dontrun{
 #' # calcualte the hours of sunlight and solar elevation on day of year 1
 #' # and latitude 51
 #' ephem <- daylength(1, 51)

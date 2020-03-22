@@ -1,4 +1,4 @@
-#' Function to download and post-process PhenoCam time series
+#' Downloads PhenoCam time series
 #' 
 #' This is a wrapper around most of all the other functions.
 #' It downloads a time series and extract relevant phenological transition
@@ -21,11 +21,10 @@
 #' @param internal allow for the data element to be returned to the workspace
 #' @return Downloaded files in out_dir of requested time series products, as well
 #' as derived phenophase estimates based upon these time series.
-#' @keywords PhenoCam, Daymet, climate data, modelling, post-processing
 #' @export
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #' # download the first ROI time series for the Harvard PhenoCam site
 #' # at an aggregation frequency of 3-days.
 #' download_phenocam(site = "harvard$",
@@ -119,7 +118,6 @@ download_phenocam = function(site = "harvard$",
     # try to download the data
     error = try(httr::GET(
       url = sprintf("%s/%s",data_location, filename),
-      httr::timeout(15),
       httr::write_disk(path = output_filename, overwrite = TRUE)))
     
     # trap errors on download, return a general error statement
@@ -155,12 +153,14 @@ download_phenocam = function(site = "harvard$",
         message("-- Flagging outliers!")
 
         # detect outliers
-        df = try(suppressWarnings(detect_outliers(df)),
+        df.tmp = try(suppressWarnings(detect_outliers(df)),
                                       silent = TRUE)
 
         # trap errors
-        if(inherits(df, "try-error")){
+        if(inherits(df.tmp, "try-error")){
           warning("outlier detection failed...")
+        }else{
+          df <- df.tmp
         }
       }
       
@@ -170,12 +170,14 @@ download_phenocam = function(site = "harvard$",
         message("-- Smoothing time series!")
         
         # smooth time series
-        df = try(suppressWarnings(smooth_ts(df)),
+        df.tmp = try(suppressWarnings(smooth_ts(df)),
                                       silent = TRUE)
 
         # trap errors
-        if(inherits(df,"try-error")){
+        if(inherits(df.tmp,"try-error")){
           warning("smoothing failed...")
+        }else{
+          df <- df.tmp
         }
       }
 
@@ -204,13 +206,15 @@ download_phenocam = function(site = "harvard$",
         message("-- Merging Daymet Data!")
 
         # merge daymet data into the time series file
-        df = try(merge_daymet(df,
+        df.tmp = try(merge_daymet(df,
                               trim = trim_daymet),
                      silent = TRUE)
 
         # trap errors
-        if(inherits(df,"try-error")){
+        if(inherits(df.tmp,"try-error")){
           warning("merging daymet data failed...")
+        }else{
+          df <- df.tmp
         }
       }
       
@@ -221,12 +225,14 @@ download_phenocam = function(site = "harvard$",
         message("-- Contracting Data!")
         
         # merge daymet data into the time series file
-        df = try(contract_phenocam(df),
+        df.tmp = try(contract_phenocam(df),
                  silent = TRUE)
         
         # trap errors
-        if(inherits(df,"try-error")){
+        if(inherits(df.tmp,"try-error")){
           warning("contracting data failed...")
+        }else{
+          df <- df.tmp
         }
       }
       

@@ -11,11 +11,10 @@
 #' @param out_dir output directory where to store data (default = tempdir())
 #' @return A truncated PhenoCam data structure or file, with data limited to
 #' the year specified.
-#' @keywords time series, smoothing, phenocam
 #' @export
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #' # download demo data
 #' download_phenocam(site = "harvard$",
 #'                   veg_type = "DB",
@@ -65,6 +64,7 @@ truncate_phenocam = function(data,
   } else {
     # if provided a data frame
     # return the original data frame, with flagged outliers
+    class(data) = "phenocamr"
     return(data)
   }
 }

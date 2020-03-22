@@ -1,4 +1,4 @@
-#' Function to list all site regions-of-interst (ROIs)
+#' List all site regions-of-interst (ROIs)
 #' 
 #' The ROI list can be helpful in determining which time series to download
 #' using `download_phenocam()`.
@@ -6,11 +6,10 @@
 #' @param out_dir output directory (default = tempdir())
 #' @param internal TRUE or FALSE (default = TRUE)
 #' @return A data frame with ROIs for all available cameras
-#' @keywords PhenoCam, meta-data
 #' @export
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #' # download the site meta-data
 #' df <- list_rois()
 #' }

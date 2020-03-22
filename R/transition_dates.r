@@ -9,17 +9,16 @@
 #' @param middle_thresh the middle threshold used (default = 0.25)
 #' @param upper_thresh the maximum threshold used (default = 0.5)
 #' @param percentile time series percentiles to process (mean, 50, 75, 90)
-#' @param penalty how sensitive is the algorithm, lower is more sensitve (< 0 )
+#' @param penalty how sensitive is the algorithm, lower is more sensitve (< 1 )
 #' @param seg_length minimum length of a segment to be evaluated
 #' @param reverse flip the direction of the processing
 #' @param plot plot for debugging purposes
 #' @return Transition date estimates in UNIX time, including uncertainties
 #' and the threshold values estimated for each section of a time series.
-#' @keywords PhenoCam, transition dates, phenology, time series
 #' @export
 #' @examples
 #' 
-#' \donttest{
+#' \dontrun{
 #' # download demo data
 #' download_phenocam(site = "harvard$",
 #'                   veg_type = "DB",

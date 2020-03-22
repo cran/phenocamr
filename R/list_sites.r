@@ -1,4 +1,4 @@
-#' Function to list all site meta-data
+#' List all site meta-data
 #' 
 #' The site list can be helpful in determining which time series to download
 #' using `download_phenocam()`. The site list also includes meta-data 
@@ -8,11 +8,10 @@
 #' @param out_dir output directory (default = tempdir())
 #' @param internal TRUE or FALSE (default = TRUE)
 #' @return A data frame with meta-data for all available sites.
-#' @keywords PhenoCam, meta-data
 #' @export
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #' # download the site meta-data
 #' df <- list_sites()
 #' }

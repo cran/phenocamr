@@ -2,11 +2,16 @@
 % Please edit documentation in R/smooth_ts.r
 \name{smooth_ts}
 \alias{smooth_ts}
-\title{Smooths a PhenoCam time series}
+\title{Smooth a PhenoCam time series}
 \usage{
-smooth_ts(data, metrics = c("gcc_mean", "gcc_50", "gcc_75", "gcc_90",
-  "rcc_mean", "rcc_50", "rcc_75", "rcc_90"), force = TRUE,
-  internal = TRUE, out_dir = tempdir())
+smooth_ts(
+  data,
+  metrics = c("gcc_mean", "gcc_50", "gcc_75", "gcc_90", "rcc_mean", "rcc_50", "rcc_75",
+    "rcc_90"),
+  force = TRUE,
+  internal = TRUE,
+  out_dir = tempdir()
+)
 }
 \arguments{
 \item{data}{a PhenoCam data file or data structure}
@@ -26,12 +31,12 @@ objects added to the original file. Smoothing is required for `phenophase()`
 and `transition_dates()` functions.
 }
 \description{
-Smooths time series iteratively using a bayesian information criterion (BIC) 
+Smooths time series iteratively using a Akaike information criterion (AIC) 
 to find an optimal smoothing parameter and curve.
 }
 \examples{
 
-\donttest{
+\dontrun{
 # with defaults, outputting a data frame
 # with smoothed values, overwriting the original
 
@@ -50,7 +55,3 @@ df <- read_phenocam(file.path(tempdir(),"harvard_DB_1000_3day.csv"))
 df <- smooth_ts(df)
 }
 }
-\keyword{phenocam}
-\keyword{series,}
-\keyword{smoothing,}
-\keyword{time}
